@@ -10,12 +10,18 @@
 	
 	<h1>Testando Envio!</h1>
 	
-	<form action="receber-nome.jsp">
+	<form action="ServletLogin" method="post" onsubmit="" >
+	
+	<label>Nome:</label>
 	<input name="nome">
-	<input name="idade">
+	<label>Idade:</label>
+	<input name="idade" type="date">
 	
 	<input type="submit" value="Enviar">
 	</form>
 
+	<script type="text/javascript">
+
+	</script>
 </body>
 </html>

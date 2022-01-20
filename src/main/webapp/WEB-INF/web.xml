@@ -14,4 +14,14 @@
     <servlet-name>ServletLogin</servlet-name>
     <url-pattern>/ServletLogin</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletLoginn</display-name>
+    <servlet-name>ServletLoginn</servlet-name>
+    <servlet-class>servlets.ServletLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLoginn</servlet-name>
+    <url-pattern>/ServletLoginn</url-pattern>
+  </servlet-mapping>
 </web-app>
