@@ -1,6 +1,7 @@
 package filter;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -13,7 +14,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -67,6 +67,11 @@ public class FilterAutenticacao implements Filter {
 			connection.commit(); /*Deu tudo certo Commita no Banco*/
 		}catch(Exception ex) {
 			ex.printStackTrace();
+			
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", "Causa da Exceção: "+ex.getMessage());
+			redirecionar.forward(request, response);
+			
 			try {
 				connection.rollback();
 			} catch (SQLException e) {
@@ -82,5 +87,8 @@ public class FilterAutenticacao implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		connection = SingleConnectionBanco.getConnection();
 	}
+
+	
+	
 
 }

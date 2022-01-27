@@ -1,35 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+	<link rel="icon" href="assets/images/gato-preto.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="CSS/loginstyle.css">
+	 
 <title>Estudando JSP</title>
-
-<link rel="stylesheet" type="text/css" href="CSS/LoginStyle.css" >
-
 </head>
 <body>
-	<form action="ServletLogin" method="post">
+
+	<div class = "main">
+	<form action="ServletLogin" method="post" class="needs-validation" novalidate>
+	 
+	<h2>Login</h2>
 	<input type="hidden" value="<%= request.getParameter("url")%>" name="url">
-
-
-		<fieldset class="container">
-
-			<h2>LOGIN</h2>
-
-			<label>Login:</label>
-			 <input name="login" type="text" placeholder="Login" id="Login"> 
-			 
-			 <label>Senha:</label> 
-			 <input name="senha" type="password" placeholder="Senha" id="Senha"> 
-			 
-			 <h4> ${msg}</h4>
-			 
-			 <input type="submit" value="Logar" id="logar" >
-			 
-		</fieldset>
+		<div class="md-3">
+		    <label for="exampleInputEmail1" class="form-label">Login</label>
+		    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="login" required>
+		    <div class="invalid-feedback">
+      			Campo Obrigatorio!!
+    		</div>
+    		<div class="valid-feedback">
+      			Ok
+    		</div>
+  		</div>
+		<div class="mb-3">
+		    <label for="exampleInputPassword1" class="form-label">Password</label>
+		    <input type="password" class="form-control" id="exampleInputPassword1" name="senha" required=>
+		    <div class="invalid-feedback">
+      			Campo Obrigatorio!!
+    		</div>
+    		<div class="valid-feedback">
+      			Ok
+    		</div>
+		</div>
+		
+		<p>${msg}</p>
+  <button type="submit" class="btn btn-primary">Entrar</button>
 	</form>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">(function () {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  var forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.prototype.slice.call(forms)
+		    .forEach(function (form) {
+		      form.addEventListener('submit', function (event) {
+		        if (!form.checkValidity()) {
+		          event.preventDefault()
+		          event.stopPropagation()
+		        }
+
+		        form.classList.add('was-validated')
+		      }, false)
+		    })
+		})()</script>
 </body>
 </html>
