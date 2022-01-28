@@ -55,7 +55,7 @@ public class FilterAutenticacao implements Filter {
 			if(UsuarioLogado == null && !UrlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) /*Não Esta Logado*/{
 				
 				RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + UrlParaAutenticar);
-				request.setAttribute("msg", "Por favor Realize o Login");
+				request.setAttribute("msg", "Por favor! Faça o Login!");
 				redireciona.forward(request, response);
 				
 				return; /*Para execução e redirecionamento para o login*/
