@@ -11,10 +11,12 @@ div.pcoded-inner-content{
 
 
 div.card{
-	width: 90%;
+	width: 80%;
 }
 
-
+p#msg{
+	color: red;
+}
 
 
 

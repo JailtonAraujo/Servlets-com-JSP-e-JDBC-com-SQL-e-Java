@@ -51,31 +51,38 @@
                                             method="post">
                                             <div class="form-group form-default">
                                                 <input type="text" class="form-control" name="id" id="id"
-                                                    readonly="readonly">
+                                                    readonly="readonly" value="${modelLogin.id }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">ID</label>
                                             </div>
                                             <div class="form-group form-default">
                                                 <input type="text" name="nome" id="nome" class="form-control"
-                                                    required="" autocomplete="off">
+                                                    required="" autocomplete="off" value="${modelLogin.nome }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Nome:</label>
                                             </div>
                                             <div class="form-group form-default">
                                                 <input type="email" name="email" id="email" class="form-control"
-                                                    required="">
+                                                    required="" value="${modelLogin.email }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Email (exa@gmail.com)</label>
                                             </div>
                                             <div class="form-group form-default">
+                                                <input type="text" name="login" id="login" class="form-control"
+                                                    required="" autocomplete="off" value="${modelLogin.login }">
+                                                <span class="form-bar"></span>
+                                                <label class="float-label">Login:</label>
+                                            </div>
+                                            <div class="form-group form-default">
                                                 <input type="password" name="senha" id="senha" class="form-control"
-                                                    required="" autocomplete="off">
+                                                    required="" autocomplete="off" value="${modelLogin.senha }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Senha:</label>
                                             </div>
 
-
-                                            <button class="btn btn-primary waves-effect waves-light">SALVAR</button>
+												<p id="msg">${msg }</p>
+												
+                                            <button class="btn btn-primary waves-effect waves-light" id="btn-salvar">SALVAR</button>
                                             <button class="btn btn-success waves-effect waves-light">NOVO</button>
                                             <button class="btn btn-info waves-effect waves-light">EXCLUIR</button>
 
@@ -92,6 +99,7 @@
 
 
         <jsp:include page="JavaScriptFile.jsp"></jsp:include>
+        
     </body>
 
     </html>
