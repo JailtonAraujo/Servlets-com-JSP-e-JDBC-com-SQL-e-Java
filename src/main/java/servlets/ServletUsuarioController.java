@@ -32,6 +32,8 @@ public class ServletUsuarioController extends HttpServlet implements Servlet{
 		
 		try {
 		
+			String msg = "Operação Realizada com Sucesso!";
+			
 		String id = request.getParameter("id");
 		String nome = request.getParameter("nome");
 		String email = request.getParameter("email");
@@ -48,8 +50,15 @@ public class ServletUsuarioController extends HttpServlet implements Servlet{
 		modelLogin.setLogin(login);
 		modelLogin.setSenha(senha);
 		
+		if(daoUsuarioRepository.ValidarLogin(modelLogin.getLogin()) == true && modelLogin.getId() == 0 ) {
+			msg = "Já existe um usuario com o mesmo login, informe outro login!";
+		}else {
+			
+			modelLogin = daoUsuarioRepository.Salvar(modelLogin);
+		}
+		
 	
-		request.setAttribute("msg", "Operação Realizada com Sucesso!");
+		request.setAttribute("msg", msg);
 		request.setAttribute("modelLogin", modelLogin);
 		request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 	

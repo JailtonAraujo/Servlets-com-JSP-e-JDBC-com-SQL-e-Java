@@ -23,7 +23,7 @@
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
 
-                <!-- Barra De Navegaï¿½ï¿½o da Pagina -->
+                <!-- Barra De Navegação da Pagina -->
                 <jsp:include page="NavBar.jsp"></jsp:include>
 
                 <div class="pcoded-main-container">

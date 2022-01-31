@@ -12,6 +12,16 @@ public class ModelLogin implements Serializable {
 	private String Login;
 	private String Senha;
 
+	
+	public boolean isNew() {
+		if(this.id == 0) {/*Insere*/
+			return true;
+		}else if (this.id !=0 && this.id > 0) {/*Atualiza*/
+			return false; 
+		}
+		return id == 0;
+	}
+	
 	public long getId() {
 		return id;
 	}
