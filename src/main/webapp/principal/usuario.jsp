@@ -23,7 +23,7 @@
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
 
-                <!-- Barra De Navegação da Pagina -->
+                <!-- Barra De Navegaï¿½ï¿½o da Pagina -->
                 <jsp:include page="NavBar.jsp"></jsp:include>
 
                 <div class="pcoded-main-container">
@@ -48,32 +48,35 @@
                                     <div class="card-block">
                                         <form class="form-material"
                                             action="<%= request.getContextPath()%>/ServletUsuarioController"
-                                            method="post">
-                                            <div class="form-group form-default">
+                                            method="post" id="formUser">
+                                            
+                                            <input type="text" name = "acao" id="acao" hidden="">
+                                            
+                                            <div class="form-group form-default form-static-label">
                                                 <input type="text" class="form-control" name="id" id="id"
                                                     readonly="readonly" value="${modelLogin.id }">
                                                 <span class="form-bar"></span>
-                                                <label class="float-label">ID</label>
+                                                <label class="float-label">ID:</label>
                                             </div>
-                                            <div class="form-group form-default">
+                                            <div class="form-group form-default form-static-label">
                                                 <input type="text" name="nome" id="nome" class="form-control"
                                                     required="" autocomplete="off" value="${modelLogin.nome }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Nome:</label>
                                             </div>
-                                            <div class="form-group form-default">
+                                            <div class="form-group form-default form-static-label">
                                                 <input type="email" name="email" id="email" class="form-control"
                                                     required="" value="${modelLogin.email }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Email (exa@gmail.com)</label>
                                             </div>
-                                            <div class="form-group form-default">
+                                            <div class="form-group form-default form-static-label">
                                                 <input type="text" name="login" id="login" class="form-control"
                                                     required="" autocomplete="off" value="${modelLogin.login }">
                                                 <span class="form-bar"></span>
                                                 <label class="float-label">Login:</label>
                                             </div>
-                                            <div class="form-group form-default">
+                                            <div class="form-group form-default form-static-label">
                                                 <input type="password" name="senha" id="senha" class="form-control"
                                                     required="" autocomplete="off" value="${modelLogin.senha }">
                                                 <span class="form-bar"></span>
@@ -83,8 +86,8 @@
 												<p id="msg">${msg }</p>
 												
                                             <button class="btn btn-primary waves-effect waves-light" id="btn-salvar">SALVAR</button>
-                                            <button class="btn btn-success waves-effect waves-light">NOVO</button>
-                                            <button class="btn btn-info waves-effect waves-light">EXCLUIR</button>
+                                            <button type="button" class="btn btn-success waves-effect waves-light" onclick="limparCampos();">NOVO</button>
+                                            <button type="button" class="btn btn-info waves-effect waves-light" onclick="criarDeleteComAjax();">EXCLUIR</button>
 
 
                                         </form>
@@ -99,6 +102,50 @@
 
 
         <jsp:include page="JavaScriptFile.jsp"></jsp:include>
+        
+        <script type="text/javascript">
+
+        function criarDeleteComAjax(){
+
+            if(confirm('Deseja realmente excluir os dados?')){
+
+            var urlAction = document.getElementById('formUser').action;
+            var idUser = document.getElementById('id').value;
+
+            $.ajax({
+                method: "get",
+                url:urlAction,
+                data:"id=" + idUser + "&acao=deletarajax",
+                success: function(response){
+                    limparCampos();
+                    document.getElementById('msg').textContent = response;
+                }
+            }).fail(function(xhr, errorThrown) {
+                alert('erro ao deletar usuario!' + xhr.responseText);
+            });
+        }
+        }
+        	
+        function criarDelete() {
+
+            if(confirm('Deseja realmente excluir os dados?')){
+
+        	document.getElementById("formUser").method = 'get';
+        	document.getElementById("acao").value = 'deletar';
+        	document.getElementById("formUser").submit();
+            }
+            
+		}
+        
+        function limparCampos() {
+			var elementos = document.getElementById("formUser").elements;
+        	
+        	for(i = 0; i<= elementos.length; i++){
+        		elementos[i].value = '';
+        	}	
+		}
+        
+        </script>
         
     </body>
 
