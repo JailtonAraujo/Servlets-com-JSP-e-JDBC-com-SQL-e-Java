@@ -139,13 +139,25 @@
 
         
         	document.querySelector('#btn-search').addEventListener('click', (e)=>{
-                let nomeBusca = document.getElementById('txt-search').value;
-                
+                let nomeBusca = document.querySelector('#txt-search').value;
+                let urlAction = document.querySelector('#formUser').action;
+
                 if(nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != ""){
-                	alert(nomeBusca);
+                    $.ajax({
+                        method: 'get',
+                        url: urlAction,
+                        data: "nomeBusca=" + nomeBusca + "&acao=buscarComAjax",
+                        success: function(response){
+
+                        }
+                    }).fail(function(xhr, statu, errorThrown){
+                        alert('Erro ao buscar usuario por ID:' + xhr.responseText);
+                    });
                 }
             });
         
+            /*
+                Metodo Alternativo
             function buscarUsuario(){
                 let nomeBusca = document.getElementById('txt-search').value;
                 
@@ -153,6 +165,7 @@
                 	alert(nomeBusca);
                 }
             }
+            */
 
         function criarDeleteComAjax(){
 

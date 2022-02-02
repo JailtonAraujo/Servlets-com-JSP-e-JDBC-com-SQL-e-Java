@@ -45,7 +45,16 @@ public class ServletUsuarioController extends HttpServlet implements Servlet{
 				
 				response.getWriter().write("Excluido com sucesso!");
 				
-			}else {
+			}
+		
+		else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarComAjax")) {
+			
+			String nomeBusca = request.getParameter("nomeBusca");
+			
+			System.out.println(nomeBusca);
+			
+			
+		}else {
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 		
