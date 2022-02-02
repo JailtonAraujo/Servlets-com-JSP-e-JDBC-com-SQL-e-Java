@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="ISO-8859-1" %>
 
 
     <!DOCTYPE html>
@@ -23,13 +23,13 @@
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
 
-                <!-- Barra De Navega��o da Pagina -->
+                <!-- Barra De Navegação da Pagina -->
                 <jsp:include page="NavBar.jsp"></jsp:include>
 
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
 
-                        <!-- Menu De Op��es da Pagina -->
+                        <!-- Menu De Opções da Pagina -->
                         <jsp:include page="MenuDeOpcoes.jsp"></jsp:include>
 
                         <div class="pcoded-content">
@@ -88,6 +88,7 @@
                                             <button class="btn btn-primary waves-effect waves-light" id="btn-salvar">SALVAR</button>
                                             <button type="button" class="btn btn-success waves-effect waves-light" onclick="limparCampos();">NOVO</button>
                                             <button type="button" class="btn btn-info waves-effect waves-light" onclick="criarDeleteComAjax();">EXCLUIR</button>
+                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ModalUser">PESQUISAR</button>
 
 
                                         </form>
@@ -99,11 +100,59 @@
                 </div>
             </div>
         </div>
-
+	
+					<!-- Modal -->
+		<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de usuário</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="container-group">
+		      		<input type = "text" id = "txt-search" placeholder="Nome">
+		        	<button type="button" id = "btn-search" onclick="">Pesquisar</button>
+		      	</div>
+		      	
+		      	<table class="table">
+		      		<thead>
+		      			<th>ID</th>
+		      			<th>Nome</th>
+		      			<th>Ver</th>
+		      		</thead>
+		      	</table>
+		      	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
         <jsp:include page="JavaScriptFile.jsp"></jsp:include>
         
         <script type="text/javascript">
+
+        
+        	document.querySelector('#btn-search').addEventListener('click', (e)=>{
+                let nomeBusca = document.getElementById('txt-search').value;
+                
+                if(nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != ""){
+                	alert(nomeBusca);
+                }
+            });
+        
+            function buscarUsuario(){
+                let nomeBusca = document.getElementById('txt-search').value;
+                
+                if(nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != ""){
+                	alert(nomeBusca);
+                }
+            }
 
         function criarDeleteComAjax(){
 
@@ -146,6 +195,8 @@
 		}
         
         </script>
+        
+      
         
     </body>
 

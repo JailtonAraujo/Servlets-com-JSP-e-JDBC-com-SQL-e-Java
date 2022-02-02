@@ -12,12 +12,48 @@ div.pcoded-inner-content{
 
 div.card{
 	width: 80%;
+	
 }
 
 p#msg{
 	color: red;
 }
 
+div.container-group{
+	width: 100%;
+	display: flex;
+	
+	align-items: center;
+}
+
+input#txt-search{
+	width: 82%;
+	position: relative;
+	margin: 0;
+	border-style: none;
+	background-color: #999;
+	height: 32px;
+	border-bottom-left-radius:5px;
+	border-top-left-radius:5px;
+}
+button#btn-search {
+	background-color: lime;
+	border-radius: 5px;
+	border-bottom-left-radius:0px;
+	border-top-left-radius:0px;
+	border-style: none;
+	height: 32px;
+	margin: 0;
+		
+}
+
+input#txt-search::placeholder{
+	color:black;
+}
+
+button#btn-search:hover{
+	background-color: rgb(1, 255, 115, 2.0);
+}
 
 
 
