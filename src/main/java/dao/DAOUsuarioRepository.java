@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.cj.xdevapi.PreparableStatement;
@@ -52,6 +53,33 @@ public class DAOUsuarioRepository {
 		}
 		return this.ConsultarUsuario(modelLogin.getLogin());
 	}
+	
+	
+	public List<ModelLogin> consultarUsuarioList(String nome)throws Exception{
+		
+		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
+		
+		String sql = "select * from usuario where nome like ?;";
+		
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		
+		statement.setString(1, "%"+nome+"%");
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		while(resultSet.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			
+			modelLogin.setId(resultSet.getLong(1));
+			modelLogin.setLogin(resultSet.getString(2));
+			//modelLogin.setSenha(resultSet.getString(3));
+			modelLogin.setEmail(resultSet.getString(4));
+			modelLogin.setNome(resultSet.getString(5));
+			
+			ListaDeUsuarios.add(modelLogin);
+		}
+		return ListaDeUsuarios;
+	}
 
 	public ModelLogin ConsultarUsuario(String login) {
 
@@ -81,6 +109,30 @@ public class DAOUsuarioRepository {
 			return null;
 			// TODO: handle exception
 		}
+	}
+	
+	
+	public ModelLogin buscarUsuarioPorId(String id) throws Exception{
+		
+		ModelLogin usuario = new ModelLogin();
+		
+		String sql = "select * from usuario where idusuario = ?";
+		
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		statement.setLong(1, Long.parseLong(id));
+		
+		ResultSet resultSet =  statement.executeQuery();
+		
+		while(resultSet.next()) {
+			usuario.setId(resultSet.getLong("idusuario"));
+			usuario.setLogin(resultSet.getString("login"));
+			usuario.setSenha(resultSet.getString("senha"));
+			usuario.setEmail(resultSet.getString("email"));
+			usuario.setNome(resultSet.getString("nome"));
+		}
+		
+		return usuario;
+		
 	}
 
 	public boolean ValidarLogin(String login) throws Exception {

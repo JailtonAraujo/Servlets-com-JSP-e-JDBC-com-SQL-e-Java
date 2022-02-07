@@ -33,3 +33,4 @@ collate = utf8_bin;
 alter table `java-servlet-bd`.`usuario` add column `email` varchar(255) not null after `senha`;
 
 alter table `usuario` add column `nome` varchar(60) not null after `email`;
+

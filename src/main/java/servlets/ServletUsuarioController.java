@@ -10,59 +10,74 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DAOUsuarioRepository;
 
 @WebServlet("/ServletUsuarioController")
-public class ServletUsuarioController extends HttpServlet implements Servlet{
+public class ServletUsuarioController extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-       
-	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
-  
-    public ServletUsuarioController() {
-        
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
+
+	public ServletUsuarioController() {
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-		String acao = request.getParameter("acao");
-		
-		if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
-			String id = request.getParameter("id");
-			
-			daoUsuarioRepository.deletar(id);
-			
-			request.setAttribute("msg", "Excluido com sucesso!");
-			
-			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-		}
-		else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
+			String acao = request.getParameter("acao");
+
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				String id = request.getParameter("id");
+
+				daoUsuarioRepository.deletar(id);
+
+				request.setAttribute("msg", "Excluido com sucesso!");
+
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
+				String id = request.getParameter("id");
+
+				daoUsuarioRepository.deletar(id);
+
+				response.getWriter().write("Excluido com sucesso!");
+				request.setAttribute("msg", "Excluido com sucesso!");
+
+			}
+
+			else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarComAjax")) {
+
+				String nomeBusca = request.getParameter("nomeBusca");
+
+				List<ModelLogin> dadosJasonUser = daoUsuarioRepository.consultarUsuarioList(nomeBusca);
+
+				ObjectMapper objectMapper = new ObjectMapper();
+
+				String Json = objectMapper.writeValueAsString(dadosJasonUser);
+
+				response.getWriter().write(Json);
+
+			}
+
+			else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
+				
 				String id = request.getParameter("id");
 				
-				daoUsuarioRepository.deletar(id);
+				ModelLogin modelLogin = daoUsuarioRepository.buscarUsuarioPorId(id);
 				
+				request.setAttribute("msg", "Usuario em edição");
+				request.setAttribute("modelLogin", modelLogin);
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 				
-				response.getWriter().write("Excluido com sucesso!");
-				
-			}
-		
-		else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarComAjax")) {
-			
-			String nomeBusca = request.getParameter("nomeBusca");
-			
-			System.out.println(nomeBusca);
-			
-			
-		}else {
+			} else {
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
-		
-		
-		
-		
-		
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", "Causa da Exceção: " + e.getMessage());
@@ -70,54 +85,51 @@ public class ServletUsuarioController extends HttpServlet implements Servlet{
 		}
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-		
+
 			String msg = "Operação Realizada com Sucesso!";
-			
-		String id = request.getParameter("id");
-		String nome = request.getParameter("nome");
-		String email = request.getParameter("email");
-		String login = request.getParameter("login");
-		String senha = request.getParameter("senha");
-		
-		
-		
-		ModelLogin modelLogin = new ModelLogin();
-		
-		modelLogin.setId(id != null & !id.isEmpty() ? Long.parseLong(id) : 0);
-		modelLogin.setNome(nome);
-		modelLogin.setEmail(email);
-		modelLogin.setLogin(login);
-		modelLogin.setSenha(senha);
-		
-		if(daoUsuarioRepository.ValidarLogin(modelLogin.getLogin()) == true && modelLogin.getId() == 0 ) {
-			msg = "Já existe um usuario com o mesmo login, informe outro login!";
-		}else {
-			
-			if(modelLogin.isNew()) {
-				msg = "Salvo com sucesso!";
-			}else {
-				msg = "Atualizado com sucesso!";
+
+			String id = request.getParameter("id");
+			String nome = request.getParameter("nome");
+			String email = request.getParameter("email");
+			String login = request.getParameter("login");
+			String senha = request.getParameter("senha");
+
+			ModelLogin modelLogin = new ModelLogin();
+
+			modelLogin.setId(id != null & !id.isEmpty() ? Long.parseLong(id) : 0);
+			modelLogin.setNome(nome);
+			modelLogin.setEmail(email);
+			modelLogin.setLogin(login);
+			modelLogin.setSenha(senha);
+
+			if (daoUsuarioRepository.ValidarLogin(modelLogin.getLogin()) == true && modelLogin.getId() == 0) {
+				msg = "Já existe um usuario com o mesmo login, informe outro login!";
+			} else {
+
+				if (modelLogin.isNew()) {
+					msg = "Salvo com sucesso!";
+				} else {
+					msg = "Atualizado com sucesso!";
+				}
+				modelLogin = daoUsuarioRepository.Salvar(modelLogin);
 			}
-			modelLogin = daoUsuarioRepository.Salvar(modelLogin);
-		}
-		
-	
-		request.setAttribute("msg", msg);
-		request.setAttribute("modelLogin", modelLogin);
-		request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-	
-		}catch(Exception e) {
+
+			request.setAttribute("msg", msg);
+			request.setAttribute("modelLogin", modelLogin);
+			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", "Causa da Exceção: " + e.getMessage());
 			requestDispatcher.forward(request, response);
 		}
-	
+
 	}
 
 }

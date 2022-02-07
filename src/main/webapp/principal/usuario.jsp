@@ -3,11 +3,11 @@
 
     <!DOCTYPE html>
     <html lang="en">
-
     <!-- head do projeto-->
     <jsp:include page="head.jsp"></jsp:include>
 
     <head>
+        <meta charset="utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/usuario.css">
@@ -49,9 +49,9 @@
                                         <form class="form-material"
                                             action="<%= request.getContextPath()%>/ServletUsuarioController"
                                             method="post" id="formUser">
-                                            
-                                            <input type="text" name = "acao" id="acao" hidden="">
-                                            
+
+                                            <input type="text" name="acao" id="acao" hidden="">
+
                                             <div class="form-group form-default form-static-label">
                                                 <input type="text" class="form-control" name="id" id="id"
                                                     readonly="readonly" value="${modelLogin.id }">
@@ -83,12 +83,16 @@
                                                 <label class="float-label">Senha:</label>
                                             </div>
 
-												<p id="msg">${msg }</p>
-												
-                                            <button class="btn btn-primary waves-effect waves-light" id="btn-salvar">SALVAR</button>
-                                            <button type="button" class="btn btn-success waves-effect waves-light" onclick="limparCampos();">NOVO</button>
-                                            <button type="button" class="btn btn-info waves-effect waves-light" onclick="criarDeleteComAjax();">EXCLUIR</button>
-                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ModalUser">PESQUISAR</button>
+                                            <p id="msg">${msg }</p>
+
+                                            <button class="btn btn-primary waves-effect waves-light"
+                                                id="btn-salvar">SALVAR</button>
+                                            <button type="button" class="btn btn-success waves-effect waves-light"
+                                                onclick="limparCampos();">NOVO</button>
+                                            <button type="button" class="btn btn-info waves-effect waves-light"
+                                                onclick="criarDeleteComAjax();">EXCLUIR</button>
+                                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                data-target="#ModalUser">PESQUISAR</button>
 
 
                                         </form>
@@ -100,117 +104,140 @@
                 </div>
             </div>
         </div>
-	
-					<!-- Modal -->
-		<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de usuário</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		      	<div class="container-group">
-		      		<input type = "text" id = "txt-search" placeholder="Nome">
-		        	<button type="button" id = "btn-search" onclick="">Pesquisar</button>
-		      	</div>
-		      	
-		      	<table class="table">
-		      		<thead>
-		      			<th>ID</th>
-		      			<th>Nome</th>
-		      			<th>Ver</th>
-		      		</thead>
-		      	</table>
-		      	
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-group">
+                            <input type="text" id="txt-search" placeholder="Nome">
+                            <button type="button" id="btn-search" onclick="">Pesquisar</button>
+                        </div>
+                        
+                        <!--Table de visualização-->
+                        <div style="height:300px; overflow: scroll;">
+                            <table class="table" id="tblResultados">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID:</th>
+                                        <th scope="col">Nome:</th>
+                                        <th scope="col">Login:</th>
+                                        <th scope="col">Ver:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <span id="total-resultado"></span>
+                         <!--Table de visualização-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <jsp:include page="JavaScriptFile.jsp"></jsp:include>
-        
+
         <script type="text/javascript">
 
         
-        	document.querySelector('#btn-search').addEventListener('click', (e)=>{
+        function verEditar(id){
+        	let urlAction = document.querySelector('#formUser').action;
+        	
+        	window.location.href = urlAction + "?acao=buscarEditar&id="+id;
+        }
+
+            document.querySelector('#btn-search').addEventListener('click', (e) => {
                 let nomeBusca = document.querySelector('#txt-search').value;
                 let urlAction = document.querySelector('#formUser').action;
 
-                if(nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != ""){
+                if (nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != "") {
                     $.ajax({
                         method: 'get',
                         url: urlAction,
                         data: "nomeBusca=" + nomeBusca + "&acao=buscarComAjax",
-                        success: function(response){
+                        success: function (response) {
+                            let json = JSON.parse(response);
+                            $('#tblResultados > tbody > tr').remove();
 
+                            for (let p = 0; p < json.length; p++) {
+                                $('#tblResultados > tbody').append('<tr> <td>' + json[p].id + '</td> <td>' + json[p].nome + '</td> <td>' + json[p].login + '</td> <td><button type="button" class="btn btn-info" onclick="verEditar('+json[p].id+');" >Ver</button></td></tr>');
+
+                            }
+                            document.querySelector('#total-resultado').textContent = 'Resultados: '+json.length;
                         }
-                    }).fail(function(xhr, statu, errorThrown){
+                    }).fail(function (xhr, statu, errorThrown) {
                         alert('Erro ao buscar usuario por ID:' + xhr.responseText);
                     });
                 }
             });
-        
+
             /*
                 Metodo Alternativo
             function buscarUsuario(){
                 let nomeBusca = document.getElementById('txt-search').value;
                 
                 if(nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != ""){
-                	alert(nomeBusca);
+                    alert(nomeBusca);
                 }
             }
             */
 
-        function criarDeleteComAjax(){
+            function criarDeleteComAjax() {
 
-            if(confirm('Deseja realmente excluir os dados?')){
+                if (confirm('Deseja realmente excluir os dados?')) {
 
-            var urlAction = document.getElementById('formUser').action;
-            var idUser = document.getElementById('id').value;
+                    var urlAction = document.getElementById('formUser').action;
+                    var idUser = document.getElementById('id').value;
 
-            $.ajax({
-                method: "get",
-                url:urlAction,
-                data:"id=" + idUser + "&acao=deletarajax",
-                success: function(response){
-                    limparCampos();
-                    document.getElementById('msg').textContent = response;
+                    $.ajax({
+                        method: "get",
+                        url: urlAction,
+                        data: "id=" + idUser + "&acao=deletarajax",
+                        success: function (response) {
+                            limparCampos();
+                            $('#msg').text(response);
+                        }
+                    }).fail(function (xhr, errorThrown) {
+                        alert('erro ao deletar usuario!' + xhr.responseText);
+                    });
                 }
-            }).fail(function(xhr, errorThrown) {
-                alert('erro ao deletar usuario!' + xhr.responseText);
-            });
-        }
-        }
-        	
-        function criarDelete() {
-
-            if(confirm('Deseja realmente excluir os dados?')){
-
-        	document.getElementById("formUser").method = 'get';
-        	document.getElementById("acao").value = 'deletar';
-        	document.getElementById("formUser").submit();
             }
-            
-		}
-        
-        function limparCampos() {
-			var elementos = document.getElementById("formUser").elements;
-        	
-        	for(i = 0; i<= elementos.length; i++){
-        		elementos[i].value = '';
-        	}	
-		}
-        
+
+            function criarDelete() {
+
+                if (confirm('Deseja realmente excluir os dados?')) {
+
+                    document.getElementById("formUser").method = 'get';
+                    document.getElementById("acao").value = 'deletar';
+                    document.getElementById("formUser").submit();
+                }
+
+            }
+
+            function limparCampos() {
+                var elementos = document.getElementById("formUser").elements;
+
+                for (i = 0; i <= elementos.length; i++) {
+                    elementos[i].value = '';
+                }
+            }
+
         </script>
-        
-      
-        
+
+
+
     </body>
 
     </html>
