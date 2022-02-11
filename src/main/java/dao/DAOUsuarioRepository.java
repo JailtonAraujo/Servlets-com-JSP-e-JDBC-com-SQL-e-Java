@@ -19,7 +19,7 @@ public class DAOUsuarioRepository {
 		conncetion = SingleConnectionBanco.getConnection();
 	}
 
-	public ModelLogin Salvar(ModelLogin modelLogin) throws Exception {
+	public ModelLogin Salvar(ModelLogin modelLogin) throws Exception { 
 
 		if (modelLogin.isNew()) {
 
@@ -59,7 +59,7 @@ public class DAOUsuarioRepository {
 		
 		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from usuario where nome like ?;";
+		String sql = "select * from usuario where nome like ? and useradmin is false;";
 		
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 		
@@ -87,7 +87,7 @@ public class DAOUsuarioRepository {
 
 			ModelLogin modelLogin = new ModelLogin();
 
-			String sql = "select * from usuario where upper(login) = upper('" + login + "') ";
+			String sql = "select * from usuario where upper(login) = upper('" + login + "') and useradmin is false  ";
 
 			PreparedStatement statement = conncetion.prepareStatement(sql);
 
@@ -116,7 +116,7 @@ public class DAOUsuarioRepository {
 		
 		ModelLogin usuario = new ModelLogin();
 		
-		String sql = "select * from usuario where idusuario = ?";
+		String sql = "select * from usuario where idusuario = ? and useradmin is false";
 		
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 		statement.setLong(1, Long.parseLong(id));
@@ -143,6 +143,8 @@ public class DAOUsuarioRepository {
 		ResultSet resultSet = statement.executeQuery();
 
 		resultSet.next();/* Para avançar nos resultados */
+		
+		
 
 		return resultSet.getBoolean("existe");
 
