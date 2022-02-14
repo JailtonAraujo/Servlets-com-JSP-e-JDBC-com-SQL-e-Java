@@ -162,7 +162,7 @@
                 let nomeBusca = document.querySelector('#txt-search').value;
                 let urlAction = document.querySelector('#formUser').action;
 
-                if (nomeBusca != "" && nomeBusca != null && nomeBusca.trim() != "") {
+              
                     $.ajax({
                         method: 'get',
                         url: urlAction,
@@ -180,7 +180,7 @@
                     }).fail(function (xhr, statu, errorThrown) {
                         alert('Erro ao buscar usuario por ID:' + xhr.responseText);
                     });
-                }
+                
             });
 
             /*
