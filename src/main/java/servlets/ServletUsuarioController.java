@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
 @WebServlet("/ServletUsuarioController")
-public class ServletUsuarioController extends HttpServlet implements Servlet {
+public class ServletUsuarioController extends ServletUtilGeneric implements Servlet {
 	private static final long serialVersionUID = 1L;
 
 	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
@@ -53,7 +53,7 @@ public class ServletUsuarioController extends HttpServlet implements Servlet {
 
 				String nomeBusca = request.getParameter("nomeBusca");
 
-				List<ModelLogin> dadosJasonUser = daoUsuarioRepository.consultarUsuarioList(nomeBusca);
+				List<ModelLogin> dadosJasonUser = daoUsuarioRepository.consultarUsuarioList(nomeBusca, super.getUsuario_id(request));
 
 				ObjectMapper objectMapper = new ObjectMapper();
 
@@ -67,7 +67,7 @@ public class ServletUsuarioController extends HttpServlet implements Servlet {
 				
 				String id = request.getParameter("id");
 				
-				ModelLogin modelLogin = daoUsuarioRepository.buscarUsuarioPorId(id);
+				ModelLogin modelLogin = daoUsuarioRepository.buscarUsuarioPorId(id, super.getUsuario_id(request));
 				
 				request.setAttribute("msg", "Usuario em edição");
 				request.setAttribute("modelLogin", modelLogin);
@@ -115,7 +115,7 @@ public class ServletUsuarioController extends HttpServlet implements Servlet {
 				} else {
 					msg = "Atualizado com sucesso!";
 				}
-				modelLogin = daoUsuarioRepository.Salvar(modelLogin);
+				modelLogin = daoUsuarioRepository.Salvar(modelLogin,super.getUsuario_id(request));
 			}
 
 			request.setAttribute("msg", msg);

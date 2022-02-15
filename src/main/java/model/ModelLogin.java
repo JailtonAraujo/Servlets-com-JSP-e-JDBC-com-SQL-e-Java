@@ -11,6 +11,9 @@ public class ModelLogin implements Serializable {
 	private String email;
 	private String Login;
 	private String Senha;
+	private boolean isAdmin;
+	
+	
 
 	
 	public boolean isNew() {
@@ -22,6 +25,14 @@ public class ModelLogin implements Serializable {
 		return id == 0;
 	}
 	
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public long getId() {
 		return id;
 	}

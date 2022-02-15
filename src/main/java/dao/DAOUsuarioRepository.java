@@ -19,11 +19,11 @@ public class DAOUsuarioRepository {
 		conncetion = SingleConnectionBanco.getConnection();
 	}
 
-	public ModelLogin Salvar(ModelLogin modelLogin) throws Exception { 
+	public ModelLogin Salvar(ModelLogin modelLogin, long usuario_id) throws Exception { 
 
 		if (modelLogin.isNew()) {
 
-			String sql = "insert into usuario (login, senha, email, nome) values (?, ?, ?, ?)";
+			String sql = "insert into usuario (login, senha, email, nome, usuario_id) values (?, ?, ?, ?, ?)";
 
 			PreparedStatement statement = conncetion.prepareStatement(sql);
 
@@ -31,6 +31,7 @@ public class DAOUsuarioRepository {
 			statement.setString(2, modelLogin.getSenha());
 			statement.setString(3, modelLogin.getEmail());
 			statement.setString(4, modelLogin.getNome());
+			statement.setLong(5, usuario_id);
 
 			statement.execute();
 			conncetion.commit();
@@ -51,19 +52,20 @@ public class DAOUsuarioRepository {
 			statement.executeUpdate();
 			conncetion.commit();
 		}
-		return this.ConsultarUsuario(modelLogin.getLogin());
+		return this.ConsultarUsuario(modelLogin.getLogin(), usuario_id);
 	}
 	
 	
-	public List<ModelLogin> consultarUsuarioList(String nome)throws Exception{
+	public List<ModelLogin> consultarUsuarioList(String nome, long usuario_id)throws Exception{
 		
 		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from usuario where nome like ? and useradmin is false;";
+		String sql = "select * from usuario where nome like ? and useradmin is false and usuario_id = ?;";
 		
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 		
 		statement.setString(1, "%"+nome+"%");
+		statement.setLong(2, usuario_id);
 		
 		ResultSet resultSet = statement.executeQuery();
 		
@@ -81,16 +83,17 @@ public class DAOUsuarioRepository {
 		return ListaDeUsuarios;
 	}
 
-	public ModelLogin ConsultarUsuario(String login) {
+	public ModelLogin ConsultarUsuario(String login, long usuario_id) {
 
 		try {
 
 			ModelLogin modelLogin = new ModelLogin();
 
-			String sql = "select * from usuario where upper(login) = upper('" + login + "') and useradmin is false  ";
+			String sql = "select * from usuario where upper(login) = upper('" + login + "') and useradmin is false and usuario_id = ? ";
 
 			PreparedStatement statement = conncetion.prepareStatement(sql);
-
+			statement.setLong(1, usuario_id);
+			
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
@@ -99,6 +102,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setSenha(rs.getString(3));
 				modelLogin.setEmail(rs.getString(4));
 				modelLogin.setNome(rs.getString(5));
+				modelLogin.setAdmin(rs.getBoolean("useradmin"));
 
 			}
 
@@ -112,14 +116,48 @@ public class DAOUsuarioRepository {
 	}
 	
 	
-	public ModelLogin buscarUsuarioPorId(String id) throws Exception{
+	public ModelLogin ConsultarUsuarioLogado(String login) {
+
+		try {
+
+			ModelLogin modelLogin = new ModelLogin();
+
+			String sql = "select * from usuario where upper(login) = upper('" + login + "') ";
+
+			PreparedStatement statement = conncetion.prepareStatement(sql);
+			
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				modelLogin.setId(rs.getInt(1));
+				modelLogin.setLogin(rs.getString(2));
+				modelLogin.setSenha(rs.getString(3));
+				modelLogin.setEmail(rs.getString(4));
+				modelLogin.setNome(rs.getString(5));
+				modelLogin.setAdmin(rs.getBoolean("useradmin"));
+
+			}
+
+			return modelLogin;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			// TODO: handle exception
+		}
+	}
+	
+	
+	
+	public ModelLogin buscarUsuarioPorId(String id, long usuario_id) throws Exception{
 		
 		ModelLogin usuario = new ModelLogin();
 		
-		String sql = "select * from usuario where idusuario = ? and useradmin is false";
+		String sql = "select * from usuario where idusuario = ? and useradmin is false and usuario_id=?";
 		
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 		statement.setLong(1, Long.parseLong(id));
+		statement.setLong(2, usuario_id);
 		
 		ResultSet resultSet =  statement.executeQuery();
 		
