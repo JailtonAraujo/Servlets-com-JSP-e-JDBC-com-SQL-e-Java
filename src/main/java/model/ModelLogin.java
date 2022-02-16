@@ -12,10 +12,20 @@ public class ModelLogin implements Serializable {
 	private String Login;
 	private String Senha;
 	private boolean isAdmin;
+	private String perfil;
+	
 	
 	
 
 	
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+
 	public boolean isNew() {
 		if(this.id == 0) {/*Insere*/
 			return true;
