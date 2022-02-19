@@ -111,6 +111,10 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
+			
+			if(ServletFileUpload) {
+				
+			}
 
 			if (daoUsuarioRepository.ValidarLogin(modelLogin.getLogin()) == true && modelLogin.getId() == 0) {
 				msg = "Já existe um usuario com o mesmo login, informe outro login!";
