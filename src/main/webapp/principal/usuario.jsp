@@ -70,7 +70,7 @@
 											<div class="input-group-prepend">
 												<img alt="Imagem User"  id="fotoEmBase64" src="" width="70px">
 											</div>
-											<input type="file" id="fileFoto" accept="image/*" onchange="visualizarImage('fotoEmBase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left:5px">
+											<input type="file" name="fileFoto" id="fileFoto" accept="image/*" onchange="visualizarImage('fotoEmBase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left:5px">
 										</div>
 										
 										
