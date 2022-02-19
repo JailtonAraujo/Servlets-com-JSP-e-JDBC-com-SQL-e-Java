@@ -3,6 +3,7 @@ package servlets;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DAOUsuarioRepository;
 
+@MultipartConfig
 @WebServlet("/ServletUsuarioController")
 public class ServletUsuarioController extends ServletUtilGeneric implements Servlet {
 	private static final long serialVersionUID = 1L;
@@ -98,6 +100,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String perfil = request.getParameter("perfil");
+			String sexo = request.getParameter("sexo");
 
 			ModelLogin modelLogin = new ModelLogin();
 
@@ -107,6 +110,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
+			modelLogin.setSexo(sexo);
 
 			if (daoUsuarioRepository.ValidarLogin(modelLogin.getLogin()) == true && modelLogin.getId() == 0) {
 				msg = "Já existe um usuario com o mesmo login, informe outro login!";

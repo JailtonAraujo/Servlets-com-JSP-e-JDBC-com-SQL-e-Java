@@ -23,7 +23,7 @@ public class DAOUsuarioRepository {
 
 		if (modelLogin.isNew()) {
 
-			String sql = "insert into usuario (login, senha, email, nome, usuario_id, perfil) values (?, ?, ?, ?, ?,?)";
+			String sql = "insert into usuario (login, senha, email, nome, usuario_id, perfil, sexo) values (?, ?, ?, ?, ?,?,?)";
 
 			PreparedStatement statement = conncetion.prepareStatement(sql);
 
@@ -33,12 +33,13 @@ public class DAOUsuarioRepository {
 			statement.setString(4, modelLogin.getNome());
 			statement.setLong(5, usuario_id);
 			statement.setString(6, modelLogin.getPerfil());
+			statement.setString(7, modelLogin.getSexo());
 
 			statement.execute();
 			conncetion.commit();
 
 		}else {
-			String sql = "update usuario set login=?, senha=?, email=?, nome=?, perfil =? where idusuario = ?;";
+			String sql = "update usuario set login=?, senha=?, email=?, nome=?, perfil =?, sexo = ? where idusuario = ?;";
 			
 			
 			PreparedStatement statement = conncetion.prepareStatement(sql);
@@ -48,7 +49,8 @@ public class DAOUsuarioRepository {
 			statement.setString(3, modelLogin.getEmail());
 			statement.setString(4, modelLogin.getNome());
 			statement.setString(5, modelLogin.getPerfil());
-			statement.setLong(6, modelLogin.getId());
+			statement.setString(6, modelLogin.getSexo());
+			statement.setLong(7, modelLogin.getId());
 			
 			statement.executeUpdate();
 			conncetion.commit();
@@ -79,6 +81,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setEmail(resultSet.getString(4));
 			modelLogin.setNome(resultSet.getString(5));
 			modelLogin.setPerfil(resultSet.getString("perfil"));
+			modelLogin.setSexo(resultSet.getString("sexo"));
 			
 			ListaDeUsuarios.add(modelLogin);
 		}
@@ -106,6 +109,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setNome(rs.getString(5));
 				modelLogin.setAdmin(rs.getBoolean("useradmin"));
 				modelLogin.setPerfil(rs.getString("perfil"));
+				modelLogin.setSexo(rs.getString("sexo"));
 
 			}
 
@@ -139,6 +143,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setNome(rs.getString(5));
 				modelLogin.setAdmin(rs.getBoolean("useradmin"));
 				modelLogin.setPerfil(rs.getString("perfil"));
+				modelLogin.setSexo(rs.getString("sexo"));
 
 			}
 
@@ -172,6 +177,7 @@ public class DAOUsuarioRepository {
 			usuario.setEmail(resultSet.getString("email"));
 			usuario.setNome(resultSet.getString("nome"));
 			usuario.setPerfil(resultSet.getString("perfil"));
+			usuario.setSexo(resultSet.getString("sexo"));
 		}
 		
 		return usuario;

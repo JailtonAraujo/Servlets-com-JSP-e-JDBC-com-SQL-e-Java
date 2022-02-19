@@ -13,11 +13,32 @@ public class ModelLogin implements Serializable {
 	private String Senha;
 	private boolean isAdmin;
 	private String perfil;
+	private String sexo;
+	
+	private fotoUser fotouser;
 	
 	
 	
+	public fotoUser getFotouser() {
+		return fotouser;
+	}
 
-	
+	public void setFotouser(fotoUser fotouser) {
+		this.fotouser = fotouser;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public String getPerfil() {
 		return perfil;
 	}
@@ -87,7 +108,7 @@ public class ModelLogin implements Serializable {
 	@Override
 	public String toString() {
 		return "ModelLogin [id=" + id + ", nome=" + nome + ", email=" + email + ", Login=" + Login + ", Senha=" + Senha
-				+ "]";
+				+ ", isAdmin=" + isAdmin + ", perfil=" + perfil + ", sexo=" + sexo + "]";
 	}
 
 	
