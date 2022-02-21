@@ -68,7 +68,19 @@
 										
 										<div class="form-group form-default input-group mb-4">
 											<div class="input-group-prepend">
-												<img alt="Imagem User"  id="fotoEmBase64" src="" width="70px">
+											
+											<c:if test="${modelLogin.fotouser.codFoto != '' && modelLogin.fotouser.codFoto != null}">
+												<a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
+												<img alt="Imagem User"  id="fotoEmBase64" src="${modelLogin.fotouser.codFoto }" width="70px">
+												</a>
+											</c:if>
+											<c:if test="${modelLogin.fotouser.codFoto == '' || modelLogin.fotouser.codFoto == null}">
+												<a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
+												<img alt="Imagem User" id="fotoEmBase64" src="/projeto-jsp/assets/images/IconCliente.png" width="70px">
+												</a>
+												
+											</c:if>
+											
 											</div>
 											<input type="file" name="fileFoto" id="fileFoto" accept="image/*" onchange="visualizarImage('fotoEmBase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left:5px">
 										</div>

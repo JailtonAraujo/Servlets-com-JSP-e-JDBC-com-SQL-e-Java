@@ -5,13 +5,12 @@ import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
-
-
+import model.fotoUser;
 
 import java.io.IOException;
 import java.util.List;
@@ -82,7 +81,20 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				request.setAttribute("modelLogin", modelLogin);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 				
-			} else {
+			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("downloadFoto")) { /*PREPARANDO DOWNLOAD DA FOTO DO USUARIO*/
+				String idUser = request.getParameter("id");
+				
+				ModelLogin modelLogin = daoUsuarioRepository.buscarUsuarioPorId(idUser, super.getUsuario_id(request));
+				
+				if(modelLogin.getFotouser().getCodFoto() != null && !modelLogin.getFotouser().getCodFoto().isEmpty() && modelLogin.getFotouser().getExtensao() != null && !modelLogin.getFotouser().getExtensao().isEmpty()) {
+					
+					response.setHeader("Content-Disposition", "attachment;filename=arquivo."+modelLogin.getFotouser().getExtensao());
+					response.getOutputStream().write(new Base64().decodeBase64(modelLogin.getFotouser().getCodFoto().split("\\,")[1]));
+				}
+				
+			}
+			
+			else {
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 
@@ -121,9 +133,16 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			
 			if(ServletFileUpload.isMultipartContent(request)) {
 				Part part = request.getPart("fileFoto");//Pega a foto da tela
+				
+				if(part.getSize() > 0) {
+				
 				byte[] foto = IOUtils.toByteArray(part.getInputStream());//Converte para byte//
-				String imagemBase64 = new Base64().encodeBase64String(foto);
-				System.out.println(imagemBase64);
+				String imagemBase64 = "data:image/" +part.getContentType().split("\\/")[1]+";base64,"+ new Base64().encodeBase64String(foto);
+				fotoUser fotouser = new fotoUser();
+				fotouser.setCodFoto(imagemBase64);
+				fotouser.setExtensao(part.getContentType().split("\\/")[1]);
+				modelLogin.setFotouser(fotouser);
+				}
 				
 			}
 
