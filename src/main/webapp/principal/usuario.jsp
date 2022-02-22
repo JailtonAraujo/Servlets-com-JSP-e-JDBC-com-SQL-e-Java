@@ -121,7 +121,7 @@
 												out.print(" ");
 												out.print("selected=\"selected\"");
 												out.print(" ");
-											}%> >Secretária</option>
+											}%> >Secretï¿½ria</option>
 											
 											<option value="AUXILIAR" <% 
 											
@@ -137,6 +137,57 @@
 										<span class="form-bar"></span>
 											<label class="float-label">Perfil:</label>
 										</div>
+										
+										<div class="form-group form-default form-static-label">
+											<input type="number" name="cep" id="cep"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.cep}"> <span class="form-bar"></span>
+											<label class="float-label">Cep:</label>
+											<p id="alert"></p>
+										</div>
+										
+										<div class="form-group form-default form-static-label">
+											<input type="text" name="logradouro" id="logradouro"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.logradouro }"> <span class="form-bar"></span>
+											<label class="float-label">Logradouro:</label>
+										</div>
+
+										<div class="form-group form-default form-static-label">
+											<input type="text" name="complemento" id="complemento"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.complemento}"> <span class="form-bar"></span>
+											<label class="float-label">Complemento:</label>
+										</div>
+										
+										<div class="form-group form-default form-static-label">
+											<input type="text" name="localidade" id="localidade"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.localidade }"> <span class="form-bar"></span>
+											<label class="float-label">Localidade:</label>
+										</div>
+										
+										<div class="form-group form-default form-static-label">
+											<input type="text" name="bairro" id="bairro"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.bairro }"> <span class="form-bar"></span>
+											<label class="float-label">Bairro:</label>
+										</div>
+										
+										<div class="form-group form-default form-static-label">
+											<input type="text" name="estado" id="estado"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.estado}"> <span class="form-bar"></span>
+											<label class="float-label">Estado:</label>
+										</div>
+										
+										<div class="form-group form-default form-static-label">
+											<input type="number" name="numero" id="numero"
+												class="form-control" required="" autocomplete="off"
+												value="${modelLogin.endereco.numero}"> <span class="form-bar"></span>
+											<label class="float-label">Numero:</label>
+										</div>
+										
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="login" id="login"
 												class="form-control" required="" autocomplete="off"
@@ -346,6 +397,57 @@
 					previwe.src = '';
 				}
 			}
+
+			const cep = document.querySelector('#cep');
+
+			cep.addEventListener('blur', (e)=>{
+
+				const options ={
+					method:'GET',
+					mode: 'cors',
+					cache: 'default'
+				}
+				
+				let search = cep.value;
+
+				let validacep = /^[0-9]{8}$/;
+
+				if(validacep.test(search)){
+					
+					fetch('https://viacep.com.br/ws/'+search+'/json/',options)
+				.then(response=>{response.json()
+					.then(function(data){
+
+						console.log(data.localidade);
+						document.querySelector('#localidade').value = '';
+						document.querySelector('#estado').value = '';
+						document.querySelector('#alert').textContent = '';
+						document.querySelector('#alert').style.color = '';
+
+						document.querySelector('#localidade').value = data.localidade;
+						document.querySelector('#estado').value = data.uf;
+
+
+					})
+					
+				})
+				.catch(e => {
+					document.querySelector('#alert').textContent = 'cep invalído';
+					document.querySelector('#alert').style.color = 'red';
+					document.querySelector('#localidade').value = '';
+					document.querySelector('#estado').value = '';
+					
+				})
+				}
+
+				document.querySelector('#alert').textContent = 'cep invalído';
+				document.querySelector('#alert').style.color = 'red';
+				document.querySelector('#localidade').value = '';
+				document.querySelector('#estado').value = '';
+				
+				
+			})
+
 
         </script>
 
