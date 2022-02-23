@@ -419,8 +419,6 @@
 					.then(function(data){
 
 						console.log(data.localidade);
-						document.querySelector('#localidade').value = '';
-						document.querySelector('#estado').value = '';
 						document.querySelector('#alert').textContent = '';
 						document.querySelector('#alert').style.color = '';
 
