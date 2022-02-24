@@ -28,7 +28,7 @@
 	<!-- Pre-loader end -->
 	<div id="pcoded" class="pcoded">
 		<div class="pcoded-overlay-box"></div>
-		<div class="pcoded-container navbar-wrapper">
+		<div class="pcoded-container navbar-wrapper"">
 
 			<!-- Barra De Navegação da Pagina -->
 			<jsp:include page="NavBar.jsp"></jsp:include>
@@ -55,7 +55,7 @@
 								<div class="card-block">
 									<form class="form-material" enctype="multipart/form-data"
 										action="<%=request.getContextPath()%>/ServletUsuarioController"
-										method="post" id="formUser" >
+										method="post" id="formUser">
 
 										<input type="text" name="acao" id="acao" hidden="">
 
@@ -64,28 +64,39 @@
 												readonly="readonly" value="${modelLogin.id }"> <span
 												class="form-bar"></span> <label class="float-label">ID:</label>
 										</div>
-										
-										
+
+
 										<div class="form-group form-default input-group mb-4">
 											<div class="input-group-prepend">
-											
-											<c:if test="${modelLogin.fotouser.codFoto != '' && modelLogin.fotouser.codFoto != null}">
-												<a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
-												<img alt="Imagem User"  id="fotoEmBase64" src="${modelLogin.fotouser.codFoto }" width="70px">
-												</a>
-											</c:if>
-											<c:if test="${modelLogin.fotouser.codFoto == '' || modelLogin.fotouser.codFoto == null}">
-												<a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
-												<img alt="Imagem User" id="fotoEmBase64" src="/projeto-jsp/assets/images/IconCliente.png" width="70px">
-												</a>
-												
-											</c:if>
-											
+
+												<c:if
+													test="${modelLogin.fotouser.codFoto != '' && modelLogin.fotouser.codFoto != null}">
+													<a
+														href="<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
+														<img alt="Imagem User" id="fotoEmBase64"
+														src="${modelLogin.fotouser.codFoto }" width="70px">
+													</a>
+												</c:if>
+												<c:if
+													test="${modelLogin.fotouser.codFoto == '' || modelLogin.fotouser.codFoto == null}">
+													<a
+														href="<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
+														<img alt="Imagem User" id="fotoEmBase64"
+														src="/projeto-jsp/assets/images/IconCliente.png"
+														width="70px">
+													</a>
+
+												</c:if>
+
 											</div>
-											<input type="file" name="fileFoto" id="fileFoto" accept="image/*" onchange="visualizarImage('fotoEmBase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left:5px">
+											<input type="file" name="fileFoto" id="fileFoto"
+												accept="image/*"
+												onchange="visualizarImage('fotoEmBase64', 'fileFoto');"
+												class="form-control-file"
+												style="margin-top: 15px; margin-left: 5px">
 										</div>
-										
-										
+
+
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="nome" id="nome" class="form-control"
 												required="" autocomplete="off" value="${modelLogin.nome }">
@@ -99,95 +110,93 @@
 										</div>
 
 										<div class="form-group form-default form-static-label">
-										<select class="form-control"
-											aria-label="Default select example" name="perfil">
-											<option disabled="disabled">[Selecione o perfil.]</option>
-											
-											<option value="ADMIN" <% 
-												
-												ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");		
-											
-												if(modelLogin!= null && modelLogin.getPerfil().equals("ADMIN")) {
-													out.print(" ");
-													out.print("selected=\"selected\"");
-													out.print(" ");
-											}%>>Admin</option>
-											
-											<option value="SECRETARIA" <% 
-											
-												 modelLogin = (ModelLogin) request.getAttribute("modelLogin");		
-											
-											if(modelLogin!= null && modelLogin.getPerfil().equals("SECRETARIA")){
-												out.print(" ");
-												out.print("selected=\"selected\"");
-												out.print(" ");
-											}%> >Secret�ria</option>
-											
-											<option value="AUXILIAR" <% 
-											
-											modelLogin = (ModelLogin) request.getAttribute("modelLogin");		
-											
-											if(modelLogin!= null && modelLogin.getPerfil().equals("AUXILIAR")){
-												out.print(" ");
-												out.print("selected=\"selected\"");
-												out.print(" ");
-											}%> >Auxiliar</option>
-											
-										</select>
-										<span class="form-bar"></span>
-											<label class="float-label">Perfil:</label>
+											<select class="form-control"
+												aria-label="Default select example" name="perfil">
+												<option disabled="disabled">[Selecione o perfil.]</option>
+
+												<option value="ADMIN"
+													<%ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+													if (modelLogin != null && modelLogin.getPerfil().equals("ADMIN")) {
+														out.print(" ");
+														out.print("selected=\"selected\"");
+														out.print(" ");
+													}%>>Admin</option>
+
+												<option value="SECRETARIA"
+													<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+													if (modelLogin != null && modelLogin.getPerfil().equals("SECRETARIA")) {
+														out.print(" ");
+														out.print("selected=\"selected\"");
+														out.print(" ");
+													}%>>Secret�ria</option>
+
+												<option value="AUXILIAR"
+													<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+													if (modelLogin != null && modelLogin.getPerfil().equals("AUXILIAR")) {
+														out.print(" ");
+														out.print("selected=\"selected\"");
+														out.print(" ");
+													}%>>Auxiliar</option>
+
+											</select> <span class="form-bar"></span> <label class="float-label">Perfil:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
-											<input type="number" name="cep" id="cep"
-												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.cep}"> <span class="form-bar"></span>
-											<label class="float-label">Cep:</label>
+											<input type="text" name="idendereco"
+												value="${modelLogin.endereco.id}" hidden> <input
+												type="number" name="cep" id="cep" class="form-control"
+												required="" autocomplete="off"
+												value="${modelLogin.endereco.cep}"> <span
+												class="form-bar"></span> <label class="float-label">Cep:</label>
 											<p id="alert"></p>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="logradouro" id="logradouro"
 												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.logradouro }"> <span class="form-bar"></span>
-											<label class="float-label">Logradouro:</label>
+												value="${modelLogin.endereco.logradouro }"> <span
+												class="form-bar"></span> <label class="float-label">Logradouro:</label>
 										</div>
 
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="complemento" id="complemento"
 												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.complemento}"> <span class="form-bar"></span>
-											<label class="float-label">Complemento:</label>
+												value="${modelLogin.endereco.complemento}"> <span
+												class="form-bar"></span> <label class="float-label">Complemento:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="localidade" id="localidade"
 												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.localidade }"> <span class="form-bar"></span>
+												value="${modelLogin.endereco.localidade }"
+												readonly="readonly"> <span class="form-bar"></span>
 											<label class="float-label">Localidade:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="bairro" id="bairro"
 												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.bairro }"> <span class="form-bar"></span>
-											<label class="float-label">Bairro:</label>
+												value="${modelLogin.endereco.bairro }"> <span
+												class="form-bar"></span> <label class="float-label">Bairro:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="estado" id="estado"
 												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.estado}"> <span class="form-bar"></span>
-											<label class="float-label">Estado:</label>
+												value="${modelLogin.endereco.uf}" readonly="readonly">
+											<span class="form-bar"></span> <label class="float-label">Estado:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
 											<input type="number" name="numero" id="numero"
 												class="form-control" required="" autocomplete="off"
-												value="${modelLogin.endereco.numero}"> <span class="form-bar"></span>
-											<label class="float-label">Numero:</label>
+												value="${modelLogin.endereco.numero}"> <span
+												class="form-bar"></span> <label class="float-label">Numero:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="login" id="login"
 												class="form-control" required="" autocomplete="off"
@@ -200,31 +209,29 @@
 												value="${modelLogin.senha }"> <span class="form-bar"></span>
 											<label class="float-label">Senha:</label>
 										</div>
-										
+
 										<div class="form-group form-default form-static-label">
-											<input type="radio" name="sexo" checked="checked" value="MASCULINO" <% 
-											
-											modelLogin = (ModelLogin) request.getAttribute("modelLogin");		
-											
-											if(modelLogin!= null && modelLogin.getPerfil().equals("MASCULINO")){
+											<input type="radio" name="sexo" checked="checked"
+												value="MASCULINO"
+												<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+												if (modelLogin != null && modelLogin.getPerfil().equals("MASCULINO")) {
+													out.print(" ");
+													out.print("checked=\"checked\"");
+													out.print(" ");
+												}%>>Masculino</>
+
+
+											<input type="radio" name="sexo" value="FEMININO"
+												<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+											if (modelLogin != null && modelLogin.getPerfil().equals("FEMININO")) {
 												out.print(" ");
 												out.print("checked=\"checked\"");
 												out.print(" ");
-											}
-											%>>Masculino</>
-											
-											
-											<input type="radio" name="sexo" value="FEMININO" <% 
-											modelLogin = (ModelLogin) request.getAttribute("modelLogin");		
-											
-											if(modelLogin!= null && modelLogin.getPerfil().equals("FEMININO")){
-												out.print(" ");
-												out.print("checked=\"checked\"");
-												out.print(" ");
-											}
-											%>>Feminino</>
+											}%>>Feminino</>
 										</div>
-										
+
 
 										<p id="msg">${msg }</p>
 
@@ -239,10 +246,31 @@
 										<button type="button" class="btn btn-secondary"
 											data-toggle="modal" data-target="#ModalUser">PESQUISAR</button>
 
-
 									</form>
 								</div>
 							</div>
+							<div style="height: 300px; overflow: scroll; width: 80%;">
+										<table class="table" id="tblResultadosTagLib">
+											<thead>
+												<tr>
+													<th scope="col">ID:</th>
+													<th scope="col">Nome:</th>
+													<th scope="col">Ver:</th>
+													<th scope="col">Excluir:</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${modelLogins }" var="ml">
+													<tr>
+														<td> <c:out value="${ml.id}"></c:out> </td>
+														<td> <c:out value="${ml.nome }"></c:out> </td>
+														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscarEditar&id=${ml.id}" type="button" class="btn btn-info" >Ver</a> </td>
+														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=exlcuirTagLib&id=${ml.id}" type="button" class="btn btn-danger" >Excluir</a> </td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
 						</div>
 					</div>
 				</div>
@@ -418,7 +446,7 @@
 				.then(response=>{response.json()
 					.then(function(data){
 
-						console.log(data.localidade);
+						console.log(data);
 						document.querySelector('#alert').textContent = '';
 						document.querySelector('#alert').style.color = '';
 

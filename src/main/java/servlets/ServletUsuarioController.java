@@ -5,11 +5,11 @@ import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.ModelLogin;
+import model.endereco;
 import model.fotoUser;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
 @MultipartConfig
-@WebServlet("/ServletUsuarioController")
+@WebServlet( urlPatterns = {"/ServletUsuarioController"})
 public class ServletUsuarioController extends ServletUtilGeneric implements Servlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,9 +43,15 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				String id = request.getParameter("id");
 
 				daoUsuarioRepository.deletar(id);
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+				
+				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("msg", "Excluido com sucesso!");
 
+				request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+				
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
 				String id = request.getParameter("id");
@@ -77,8 +83,13 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 				ModelLogin modelLogin = daoUsuarioRepository.buscarUsuarioPorId(id, super.getUsuario_id(request));
 				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+				
+				request.setAttribute("modelLogins", modelLogins);
+				
 				request.setAttribute("msg", "Usuario em edição");
 				request.setAttribute("modelLogin", modelLogin);
+				request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 				
 			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("downloadFoto")) { /*PREPARANDO DOWNLOAD DA FOTO DO USUARIO*/
@@ -93,8 +104,32 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				}
 				
 			}
+			else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+				
+				request.setAttribute("modelLogins", modelLogins);
+				request.setAttribute("msg", "Usuarios carregados");
+				request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			}
+			
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("exlcuirTagLib")) {
+				
+				String id = request.getParameter("id");
+				
+				daoUsuarioRepository.deletar(id);
+				request.setAttribute("msg", "Excluido com Sucesso");
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+				request.setAttribute("modelLogins", modelLogins);
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			}
 			
 			else {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+				
+				request.setAttribute("modelLogins", modelLogins);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 
@@ -120,9 +155,29 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			String senha = request.getParameter("senha");
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
+			
+			String idendereco = request.getParameter("idendereco");
+			String cep = request.getParameter("cep");
+			String logradouro = request.getParameter("logradouro");
+			String complemento = request.getParameter("complemento");
+			String localidade = request.getParameter("localidade");
+			String bairro = request.getParameter("bairro");
+			String numero = request.getParameter("numero");
+			String uf = request.getParameter("estado");
+			
+			endereco endereco = new endereco();
+			endereco.setId(Integer.valueOf(idendereco));
+			endereco.setCep(Long.valueOf(cep));
+			endereco.setLogradouro(logradouro);
+			endereco.setLocalidade(localidade);
+			endereco.setComplemento(complemento);
+			endereco.setBairro(bairro);
+			endereco.setUf(uf);
+			endereco.setNumero(Integer.valueOf(numero));
 
 			ModelLogin modelLogin = new ModelLogin();
 
+			modelLogin.setEndereco(endereco);
 			modelLogin.setId(id != null & !id.isEmpty() ? Long.parseLong(id) : 0);
 			modelLogin.setNome(nome);
 			modelLogin.setEmail(email);
@@ -158,8 +213,13 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				modelLogin = daoUsuarioRepository.Salvar(modelLogin,super.getUsuario_id(request));
 			}
 
+			List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+			
+			request.setAttribute("modelLogins", modelLogins);
+			
 			request.setAttribute("msg", msg);
 			request.setAttribute("modelLogin", modelLogin);
+			request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
 		} catch (Exception e) {
