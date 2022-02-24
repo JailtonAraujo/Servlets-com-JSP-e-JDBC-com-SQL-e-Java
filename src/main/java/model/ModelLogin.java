@@ -16,9 +16,17 @@ public class ModelLogin implements Serializable {
 	private String sexo;
 	
 	private fotoUser fotouser;
+	private endereco endereco;
 	
 	
-	
+	public endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public fotoUser getFotouser() {
 		return fotouser;
 	}
@@ -108,7 +116,8 @@ public class ModelLogin implements Serializable {
 	@Override
 	public String toString() {
 		return "ModelLogin [id=" + id + ", nome=" + nome + ", email=" + email + ", Login=" + Login + ", Senha=" + Senha
-				+ ", isAdmin=" + isAdmin + ", perfil=" + perfil + ", sexo=" + sexo + "]";
+				+ ", isAdmin=" + isAdmin + ", perfil=" + perfil + ", sexo=" + sexo + ", fotouser=" + fotouser
+				+ ", endereco=" + endereco + "]";
 	}
 
 	

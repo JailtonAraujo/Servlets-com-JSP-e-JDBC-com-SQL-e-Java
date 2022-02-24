@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class endereco {
 
+	private int id;
 	private long cep;
 	private String logradouro;
 	private String complemento;
@@ -15,8 +16,9 @@ public class endereco {
 	public endereco() {
 	}
 
-	public endereco(long cep, String logradouro, String complemento, String bairro, String localidade, String uf,
+	public endereco(int id, long cep, String logradouro, String complemento, String bairro, String localidade, String uf,
 			int numero) {
+		this.id = id;
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.complemento = complemento;
@@ -24,6 +26,16 @@ public class endereco {
 		this.localidade = localidade;
 		this.uf = uf;
 		this.numero = numero;
+	}
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public long getCep() {
@@ -103,8 +115,8 @@ public class endereco {
 
 	@Override
 	public String toString() {
-		return "endereco [cep=" + cep + ", logradouro=" + logradouro + ", bairro=" + bairro + ", localidade="
-				+ localidade + ", uf=" + uf + ", numero=" + numero + "]";
+		return "endereco [id=" + id + ", cep=" + cep + ", logradouro=" + logradouro + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf + ", numero=" + numero + "]";
 	}
 
 }
