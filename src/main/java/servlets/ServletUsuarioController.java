@@ -50,7 +50,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 
 				request.setAttribute("msg", "Excluido com sucesso!");
 
-				request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
@@ -89,7 +89,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 				request.setAttribute("msg", "Usuario em edição");
 				request.setAttribute("modelLogin", modelLogin);
-				request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 				
 			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("downloadFoto")) { /*PREPARANDO DOWNLOAD DA FOTO DO USUARIO*/
@@ -110,7 +110,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 				request.setAttribute("modelLogins", modelLogins);
 				request.setAttribute("msg", "Usuarios carregados");
-				request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 			
@@ -120,7 +120,18 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 				daoUsuarioRepository.deletar(id);
 				request.setAttribute("msg", "Excluido com Sucesso");
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
+				request.setAttribute("modelLogins", modelLogins);
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			}
+			
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("paginar")) {
+				Integer offset = Integer.parseInt(request.getParameter("pagina"));
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), offset);
+				
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				request.setAttribute("modelLogins", modelLogins);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
@@ -128,7 +139,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			else {
 				
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
-				
+				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				request.setAttribute("modelLogins", modelLogins);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
