@@ -328,6 +328,11 @@
 							</tbody>
 						</table>
 					</div>
+					
+					<nav aria-label="Page navigation example">
+						<ul class="pagination pagination-sm" id="paginacaoModel">
+						</ul>
+					</nav>	
 					<span id="total-resultado"></span>
 					<!--Table de visualização-->
 				</div>
@@ -359,7 +364,7 @@
                         method: 'get',
                         url: urlAction,
                         data: "nomeBusca=" + nomeBusca + "&acao=buscarComAjax",
-                        success: function (response) {
+                        success: function (response,txtStatus,xhr) {
                             let json = JSON.parse(response);
                             $('#tblResultados > tbody > tr').remove();
 
@@ -368,6 +373,19 @@
 
                             }
                             document.querySelector('#total-resultado').textContent = 'Resultados: '+json.length;
+                            
+                            let total = xhr.getResponseHeader('totalPagina');
+                            
+                            $('#paginacaoModel > li').remove();
+                            
+ 								for(var p = 0; p < total; p++){
+ 								
+                            	var url = urlAction +"?nomeBusca="+nomeBusca+"&acao=buscarUserAjaxPage&pagina="+(p*5);
+ 								
+                            	$("#paginacaoModel").append('<li class="page-item"><a class="page-link" href="#" onclick="buscarUserPagAjax(\''+url+'\')">'+(p+1)+'</a></li>');
+                            	
+                            }
+                            
                         }
                     }).fail(function (xhr, statu, errorThrown) {
                         alert('Erro ao buscar usuario por ID:' + xhr.responseText);
@@ -489,6 +507,40 @@
 				
 				
 			})
+			
+			function buscarUserPagAjax (url){
+				let nomeBusca = document.querySelector('#txt-search').value;
+				let urlAction = document.querySelector('#formUser').action;
+				$.ajax({
+                    method: 'get',
+                    url: url,
+                    success: function (response,txtStatus,xhr) {
+                        let json = JSON.parse(response);
+                        $('#tblResultados > tbody > tr').remove();
+
+                        for (let p = 0; p < json.length; p++) {
+                            $('#tblResultados > tbody').append('<tr> <td>' + json[p].id + '</td> <td>' + json[p].nome + '</td> <td>' + json[p].login + '</td> <td><button type="button" class="btn btn-info" onclick="verEditar('+json[p].id+');" >Ver</button></td></tr>');
+
+                        }
+                        document.querySelector('#total-resultado').textContent = 'Resultados: '+json.length;
+                        
+                        let total = xhr.getResponseHeader('totalPagina');
+                        
+                        $('#paginacaoModel > li').remove();
+                        
+								for(var p = 0; p < total; p++){
+								
+                        	var url = urlAction +"?nomeBusca="+nomeBusca+"&acao=buscarUserAjaxPage&pagina="+(p*5);
+								
+                        	$("#paginacaoModel").append('<li class="page-item"><a class="page-link" href="#" onclick="buscarUserPagAjax(\''+url+'\')">'+(p+1)+'</a></li>');
+                        	
+                        }
+                        
+                    }
+                }).fail(function (xhr, statu, errorThrown) {
+                    alert('Erro ao buscar usuario por ID:' + xhr.responseText);
+                });
+			}
 
 
         </script>

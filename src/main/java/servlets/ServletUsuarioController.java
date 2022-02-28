@@ -38,28 +38,14 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			throws ServletException, IOException {
 		try {
 			String acao = request.getParameter("acao");
-
-			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				
+			 if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
 				String id = request.getParameter("id");
 
 				daoUsuarioRepository.deletar(id);
-				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
-				
-				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("msg", "Excluido com sucesso!");
-
-				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
-				
-				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
-				String id = request.getParameter("id");
-
-				daoUsuarioRepository.deletar(id);
-
 				response.getWriter().write("Excluido com sucesso!");
-				request.setAttribute("msg", "Excluido com sucesso!");
 
 			}
 
@@ -67,12 +53,13 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 
 				String nomeBusca = request.getParameter("nomeBusca");
 
-				List<ModelLogin> dadosJasonUser = daoUsuarioRepository.consultarUsuarioList(nomeBusca, super.getUsuario_id(request));
+				List<ModelLogin> dadosJasonUser = daoUsuarioRepository.consultarUsuarioList(nomeBusca, super.getUsuario_id(request),0);
 
 				ObjectMapper objectMapper = new ObjectMapper();
 
 				String Json = objectMapper.writeValueAsString(dadosJasonUser);
-
+				
+				response.addHeader("totalPagina", ""+daoUsuarioRepository.consultarUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUsuario_id(request)));
 				response.getWriter().write(Json);
 
 			}
@@ -134,6 +121,20 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				request.setAttribute("modelLogins", modelLogins);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			}
+			
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjaxPage")) {
+				String nomeBusca = request.getParameter("nomeBusca");
+
+				String offset = request.getParameter("pagina");
+				List<ModelLogin> dadosJasonUser = daoUsuarioRepository.consultarUsuarioList(nomeBusca, super.getUsuario_id(request),Integer.parseInt(offset));
+
+				ObjectMapper objectMapper = new ObjectMapper();
+
+				String Json = objectMapper.writeValueAsString(dadosJasonUser);
+				
+				response.addHeader("totalPagina", ""+daoUsuarioRepository.consultarUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUsuario_id(request)));
+				response.getWriter().write(Json);
 			}
 			
 			else {

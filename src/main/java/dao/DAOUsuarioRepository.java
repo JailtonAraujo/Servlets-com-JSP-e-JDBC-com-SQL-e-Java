@@ -163,11 +163,11 @@ public class DAOUsuarioRepository {
 		return this.ConsultarUsuario(modelLogin.getLogin(), usuario_id);
 	}
 
-	public List<ModelLogin> consultarUsuarioList(String nome, long usuario_id) throws Exception {
+	public List<ModelLogin> consultarUsuarioList(String nome, long usuario_id, Integer offset) throws Exception {
 
 		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
 
-		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where nome like ? and useradmin is false and usuario_id = ?;";
+		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where nome like ? and useradmin is false and usuario_id = ? limit 5 offset "+offset;
 
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 
@@ -193,6 +193,68 @@ public class DAOUsuarioRepository {
 			ListaDeUsuarios.add(modelLogin);
 		}
 		return ListaDeUsuarios;
+	}
+	
+	public List<ModelLogin> consultarUsuarioListPagModal(String nome, long usuario_id, Integer offset) throws Exception {
+
+		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
+
+		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where nome like ? and useradmin is false and usuario_id = ? limit 5 offset "+offset;
+
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+
+		statement.setString(1, "%" + nome + "%");
+		statement.setLong(2, usuario_id);
+
+		ResultSet resultSet = statement.executeQuery();
+
+		while (resultSet.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			endereco endereco = new endereco();
+			
+			modelLogin.setId(resultSet.getLong("idusuario"));
+			modelLogin.setLogin(resultSet.getString("login"));
+			modelLogin.setEmail(resultSet.getString("email"));
+			modelLogin.setNome(resultSet.getString("nome"));
+			modelLogin.setPerfil(resultSet.getString("perfil"));
+			modelLogin.setSexo(resultSet.getString("sexo"));
+			endereco.setId(resultSet.getInt("endereco_id"));
+			
+			modelLogin.setEndereco(endereco);
+
+			ListaDeUsuarios.add(modelLogin);
+		}
+		return ListaDeUsuarios;
+	}
+	
+	public int consultarUsuarioListTotalPaginaPaginacao(String nome, long usuario_id) throws Exception {
+
+		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
+
+		String sql = "select count(1) as total from usuario where nome like ? and useradmin is false and usuario_id = ?;";
+
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+
+		statement.setString(1, "%" + nome + "%");
+		statement.setLong(2, usuario_id);
+		
+		ResultSet resultSet = statement.executeQuery();
+		resultSet.next();
+		double cadastros = resultSet.getDouble("total");
+		
+		double porpagina = 5.0;
+		
+		double pagina = cadastros / porpagina;
+		
+		double restoDaDivisao = pagina % 2;
+		
+		if(restoDaDivisao > 0) {
+			pagina++;
+		}
+		
+		int paginanova = (int) pagina;
+		
+		return paginanova;
 	}
 	
 	public List<ModelLogin> consultarUsuarioListPaginado(long usuario_id, Integer offset) throws Exception {
