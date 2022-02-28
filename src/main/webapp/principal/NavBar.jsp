@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
     <nav class="navbar header-navbar pcoded-header">
               <div class="navbar-wrapper">
                   <div class="navbar-logo">
@@ -18,8 +20,8 @@
                               </div>
                           </div>
                       </div>
-                      <a href="index.html">
-                          <img class="img-fluid" src="<%=request.getContextPath()%>/assets/images/logo.png" alt="Theme-Logo" />
+                      <a href="<%=request.getContextPath()%>/principal/principal.jsp">
+                          <img class="img-fluid" src="<%=request.getContextPath()%>/assets/images/black-cat.png" alt="Theme-Logo" />
                       </a>
                       <a class="mobile-options waves-effect waves-light">
                           <i class="ti-more"></i>
@@ -54,12 +56,14 @@
                               </a>
                               <ul class="show-notification">
                                   <li>
-                                      <h6>Notifications</h6>
-                                      <label class="label label-danger">New</label>
+                                      <h6>Notificações</h6>
+                                      <label class="label label-danger">Novo</label>
                                   </li>
                                   <li class="waves-effect waves-light">
                                       <div class="media">
-                                          <img class="d-flex align-self-center img-radius" src="<%=request.getContextPath()%>/assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                      
+                                      	 <img class="d-flex align-self-center img-radius" src="<%=request.getContextPath()%>/assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                          
                                           <div class="media-body">
                                               <h5 class="notification-user"><%=request.getSession().getAttribute("usuario") %></h5>
                                               <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -69,7 +73,11 @@
                                   </li>
                                   <li class="waves-effect waves-light">
                                       <div class="media">
-                                          <img class="d-flex align-self-center img-radius" src="<%=request.getContextPath()%>/assets/images/avatar-4.jpg" alt="Generic placeholder image">
+
+                                        
+                                       
+                                          <img class="d-flex align-self-center img-radius" src="<%=request.getContextPath()%>/assets/images/avatar-5.jpg" alt="Generic placeholder image">
+                                       
                                           <div class="media-body">
                                               <h5 class="notification-user">Joseph William</h5>
                                               <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
@@ -91,11 +99,12 @@
                           </li>
                           <li class="user-profile header-notification">
                               <a href="#!" class="waves-effect waves-light">
-                                  <img src="<%=request.getContextPath()%>/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                  
                                   <span><%=request.getSession().getAttribute("usuario") %></span>
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
+                              <!--  
                                   <li class="waves-effect waves-light">
                                       <a href="#!">
                                           <i class="ti-settings"></i> Settings
@@ -116,9 +125,10 @@
                                           <i class="ti-lock"></i> Lock Screen
                                       </a>
                                   </li>
+                                  -->
                                   <li class="waves-effect waves-light">
                                       <a href="ServletLogin?acao=logout">
-                                          <i class="ti-layout-sidebar-left"></i> Logout
+                                      <i class="ti-lock"></i> Sair
                                       </a>
                                   </li>
                               </ul>

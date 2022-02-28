@@ -282,7 +282,7 @@ public class DAOUsuarioRepository {
 		try {
 
 			ModelLogin modelLogin = new ModelLogin();
-			//fotoUser fotouser = new fotoUser();
+			fotoUser fotouser = new fotoUser();
 
 			String sql = "select * from usuario where upper(login) = upper('" + login + "') ";
 
@@ -300,10 +300,10 @@ public class DAOUsuarioRepository {
 				modelLogin.setPerfil(rs.getString("perfil"));
 				modelLogin.setSexo(rs.getString("sexo"));
 				
-				//fotouser.setCodFoto(rs.getString("fotouser"));
-				//fotouser.setExtensao(rs.getString("fotouserextensao"));
+				fotouser.setCodFoto(rs.getString("fotouser"));
+				fotouser.setExtensao(rs.getString("fotouserextensao"));
 				
-				//modelLogin.setFotouser(fotouser);
+				modelLogin.setFotouser(fotouser);
 
 			}
 

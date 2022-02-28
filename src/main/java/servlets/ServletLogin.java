@@ -60,6 +60,7 @@ public class ServletLogin extends HttpServlet implements Servlet {
 				modelLogin = daoUsuarioRepository.ConsultarUsuarioLogado(login);
 				request.getSession().setAttribute("usuario", modelLogin.getLogin());
 				request.getSession().setAttribute("perfil", modelLogin.getPerfil());
+				request.getSession().setAttribute("imagemUser", modelLogin.getFotouser().getCodFoto());
 				
 				
 				if(url == null || url.equals("null")) {
