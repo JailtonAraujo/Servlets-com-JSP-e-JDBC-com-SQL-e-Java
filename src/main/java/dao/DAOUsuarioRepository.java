@@ -420,6 +420,49 @@ public class DAOUsuarioRepository {
 		return usuario;
 
 	}
+	
+	public ModelLogin buscarUsuarioPorId(long usuario_id) throws Exception {
+
+		ModelLogin usuario = new ModelLogin();
+		fotoUser fotouser = new fotoUser();
+		endereco endereco = new endereco();
+
+		String sql = "select usuario.*, endereco.* from usuario left join endereco on usuario.endereco_id = endereco.id where idusuario = ? and useradmin is false";
+
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		
+		statement.setLong(1, usuario_id);
+
+		ResultSet resultSet = statement.executeQuery();
+
+		while (resultSet.next()) {
+			usuario.setId(resultSet.getLong("idusuario"));
+			usuario.setLogin(resultSet.getString("login"));
+			usuario.setSenha(resultSet.getString("senha"));
+			usuario.setEmail(resultSet.getString("email"));
+			usuario.setNome(resultSet.getString("nome"));
+			usuario.setPerfil(resultSet.getString("perfil"));
+			usuario.setSexo(resultSet.getString("sexo"));
+			
+			fotouser.setCodFoto(resultSet.getString("fotouser"));
+			fotouser.setExtensao(resultSet.getString("fotouserextensao"));
+			
+			endereco.setId(resultSet.getInt("id"));
+			endereco.setCep(resultSet.getLong("cep"));
+			endereco.setLogradouro(resultSet.getString("logradouro"));
+			endereco.setBairro(resultSet.getString("bairro"));
+			endereco.setLocalidade(resultSet.getString("localidade"));
+			endereco.setUf(resultSet.getString("uf"));
+			endereco.setNumero(resultSet.getInt("numero"));
+			endereco.setComplemento(resultSet.getString("complemento"));
+			
+			usuario.setEndereco(endereco);
+			usuario.setFotouser(fotouser);
+		}
+
+		return usuario;
+
+	}
 
 	public boolean ValidarLogin(String login) throws Exception {
 		String sql = "select count(*) as existe from usuario where upper(login) = upper('" + login + "');";
