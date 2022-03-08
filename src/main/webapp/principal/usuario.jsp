@@ -243,6 +243,11 @@
 										<button type="button"
 											class="btn btn-info waves-effect waves-light"
 											onclick="criarDeleteComAjax();">EXCLUIR</button>
+											
+										<c:if test="${modelLogin.id>0 }">
+										<a href="<%=request.getContextPath()%>/ServletTelefone?idUser=${modelLogin.id}" class="btn btn-primary waves-effect waves-light">Telefone</a>
+										</c:if>
+										
 										<button type="button" class="btn btn-secondary"
 											data-toggle="modal" data-target="#ModalUser">PESQUISAR</button>
 
