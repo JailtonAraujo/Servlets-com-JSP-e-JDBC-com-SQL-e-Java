@@ -1,7 +1,12 @@
 package model;
 
-public class fotoUser {
+import java.io.Serializable;
 
+public class fotoUser implements Serializable{
+
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codFoto;
 	private String extensao;
 

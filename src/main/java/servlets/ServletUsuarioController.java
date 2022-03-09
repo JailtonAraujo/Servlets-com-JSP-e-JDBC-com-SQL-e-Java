@@ -178,7 +178,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			String uf = request.getParameter("estado");
 			
 			endereco endereco = new endereco();
-			endereco.setId(Integer.valueOf(idendereco));
+			endereco.setId(id != null & !idendereco.isEmpty() ? Integer.parseInt(idendereco) : 0);
 			endereco.setCep(Long.valueOf(cep));
 			endereco.setLogradouro(logradouro);
 			endereco.setLocalidade(localidade);
@@ -227,11 +227,11 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 
 			List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
 			
-			request.setAttribute("modelLogins", modelLogins);
+			request.setAttribute("modelLogin", modelLogin);
 			
 			request.setAttribute("msg", msg);
-			request.setAttribute("modelLogin", modelLogin);
-			request.setAttribute("total", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+			request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
+			request.setAttribute("modelLogins", modelLogins);
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
 		} catch (Exception e) {

@@ -57,7 +57,7 @@
 										action="<%=request.getContextPath()%>/ServletUsuarioController"
 										method="post" id="formUser">
 
-										<input type="text" name="acao" id="acao" hidden="">
+										
 
 										<div class="form-group form-default form-static-label">
 											<input type="text" class="form-control" name="id" id="id"
@@ -265,7 +265,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${modelLogins }" var="ml">
+												<c:forEach items="${modelLogins}" var="ml">
 													<tr>
 														<td> <c:out value="${ml.id}"></c:out> </td>
 														<td> <c:out value="${ml.nome }"></c:out> </td>
