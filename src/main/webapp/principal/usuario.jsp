@@ -103,6 +103,11 @@
 											<span class="form-bar"></span> <label class="float-label">Nome:</label>
 										</div>
 										<div class="form-group form-default form-static-label">
+											<input type="date" class="form-control" name="dataNascimento" id="dataNascimento"
+												value="${modelLogin.dataNascimento }"> <span
+												class="form-bar"></span> <label class="float-label">Dat.Nascimento:</label>
+										</div>
+										<div class="form-group form-default form-static-label">
 											<input type="email" name="email" id="email"
 												class="form-control" required=""
 												value="${modelLogin.email }"> <span class="form-bar"></span>
@@ -270,7 +275,7 @@
 														<td> <c:out value="${ml.id}"></c:out> </td>
 														<td> <c:out value="${ml.nome }"></c:out> </td>
 														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscarEditar&id=${ml.id}" type="button" class="btn btn-info" >Ver</a> </td>
-														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=exlcuirTagLib&id=${ml.id}" type="button" class="btn btn-danger" >Excluir</a> </td>
+														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=exlcuirTagLib&id=${ml.id}&idEndereco=${ml.endereco.id}" type="button" class="btn btn-danger" >Excluir</a> </td>
 													</tr>
 												</c:forEach>
 											</tbody>

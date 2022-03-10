@@ -41,8 +41,9 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 			 if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
 				String id = request.getParameter("id");
+				String enderecoId = request.getParameter("enderecoId");
 
-				daoUsuarioRepository.deletar(id);
+				daoUsuarioRepository.deletar(id,enderecoId);
 
 				request.setAttribute("msg", "Excluido com sucesso!");
 				response.getWriter().write("Excluido com sucesso!");
@@ -104,8 +105,9 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("exlcuirTagLib")) {
 				
 				String id = request.getParameter("id");
+				String idEndereco = request.getParameter("idEndereco");
 				
-				daoUsuarioRepository.deletar(id);
+				daoUsuarioRepository.deletar(id, idEndereco);
 				request.setAttribute("msg", "Excluido com Sucesso");
 				request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 				List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
@@ -167,6 +169,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			String senha = request.getParameter("senha");
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
+			String dataNascimento = request.getParameter("dataNascimento");
 			
 			String idendereco = request.getParameter("idendereco");
 			String cep = request.getParameter("cep");
@@ -192,6 +195,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			modelLogin.setEndereco(endereco);
 			modelLogin.setId(id != null & !id.isEmpty() ? Long.parseLong(id) : 0);
 			modelLogin.setNome(nome);
+			modelLogin.setDataNascimento(dataNascimento);
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);

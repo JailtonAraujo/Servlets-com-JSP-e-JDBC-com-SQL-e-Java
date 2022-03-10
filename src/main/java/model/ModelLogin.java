@@ -8,17 +8,17 @@ public class ModelLogin implements Serializable {
 
 	private long id;
 	private String nome;
+	private String dataNascimento;
 	private String email;
 	private String Login;
 	private String Senha;
 	private boolean isAdmin;
 	private String perfil;
 	private String sexo;
-	
+
 	private fotoUser fotouser;
 	private endereco endereco;
-	
-	
+
 	public endereco getEndereco() {
 		return endereco;
 	}
@@ -56,14 +56,14 @@ public class ModelLogin implements Serializable {
 	}
 
 	public boolean isNew() {
-		if(this.id == 0) {/*Insere*/
+		if (this.id == 0) {/* Insere */
 			return true;
-		}else if (this.id !=0 && this.id > 0) {/*Atualiza*/
-			return false; 
+		} else if (this.id != 0 && this.id > 0) {/* Atualiza */
+			return false;
 		}
 		return id == 0;
 	}
-	
+
 	public boolean getIsAdmin() {
 		return isAdmin;
 	}
@@ -88,6 +88,14 @@ public class ModelLogin implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -95,7 +103,6 @@ public class ModelLogin implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	public String getLogin() {
 		return Login;
@@ -120,6 +127,4 @@ public class ModelLogin implements Serializable {
 				+ ", endereco=" + endereco + "]";
 	}
 
-	
-	
 }
