@@ -98,7 +98,7 @@
 
 
 										<div class="form-group form-default form-static-label">
-											<input type="text" name="nome" id="nome" class="form-control"
+											<input  name="nome" id="nome" class="form-control"
 												required="" autocomplete="off" value="${modelLogin.nome }">
 											<span class="form-bar"></span> <label class="float-label">Nome:</label>
 										</div>
@@ -106,6 +106,11 @@
 											<input type="date" class="form-control" name="dataNascimento" id="dataNascimento"
 												value="${modelLogin.dataNascimento }"> <span
 												class="form-bar"></span> <label class="float-label">Dat.Nascimento:</label>
+										</div>
+										<div class="form-group form-default form-static-label">
+											<input type="number" name="rendaMensal" id="rendaMensal" class="form-control"
+												required="" autocomplete="off" value="${modelLogin.rendaMensal }">
+											<span class="form-bar"></span> <label class="float-label">Renda Mensal:</label>
 										</div>
 										<div class="form-group form-default form-static-label">
 											<input type="email" name="email" id="email"
@@ -551,6 +556,8 @@
                     alert('Erro ao buscar usuario por ID:' + xhr.responseText);
                 });
 			}
+			
+			
 
 
         </script>

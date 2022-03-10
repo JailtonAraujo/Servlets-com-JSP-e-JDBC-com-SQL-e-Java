@@ -15,6 +15,7 @@ public class ModelLogin implements Serializable {
 	private boolean isAdmin;
 	private String perfil;
 	private String sexo;
+	private double rendaMensal;
 
 	private fotoUser fotouser;
 	private endereco endereco;
@@ -33,6 +34,16 @@ public class ModelLogin implements Serializable {
 
 	public void setFotouser(fotoUser fotouser) {
 		this.fotouser = fotouser;
+	}
+	
+	
+
+	public double getRendaMensal() {
+		return rendaMensal;
+	}
+
+	public void setRendaMensal(double rendaMensal) {
+		this.rendaMensal = rendaMensal;
 	}
 
 	public String getSexo() {

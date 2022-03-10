@@ -170,6 +170,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
 			String dataNascimento = request.getParameter("dataNascimento");
+			String rendaMensal = request.getParameter("rendaMensal");
 			
 			String idendereco = request.getParameter("idendereco");
 			String cep = request.getParameter("cep");
@@ -201,6 +202,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
+			modelLogin.setRendaMensal(Double.parseDouble(rendaMensal));
 			
 			if(ServletFileUpload.isMultipartContent(request)) {
 				Part part = request.getPart("fileFoto");//Pega a foto da tela

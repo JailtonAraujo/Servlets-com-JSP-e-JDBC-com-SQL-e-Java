@@ -27,7 +27,7 @@ public class DAOUsuarioRepository {
 
 		if (modelLogin.isNew()) {
 
-			String sql = "insert into usuario (login, senha, email, nome, usuario_id, perfil, sexo, endereco_id, dataNascimento) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into usuario (login, senha, email, nome, usuario_id, perfil, sexo, endereco_id, dataNascimento, rendaMensal) values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 			String sql_endereco = "insert into endereco (cep, logradouro, bairro, localidade, uf, numero, complemento) values (?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement statement = conncetion.prepareStatement(sql_endereco, Statement.RETURN_GENERATED_KEYS);
@@ -55,6 +55,7 @@ public class DAOUsuarioRepository {
 			statement.setString(7, modelLogin.getSexo());
 			statement.setInt(8, idContato);
 			statement.setString(9, modelLogin.getDataNascimento());
+			statement.setDouble(10, modelLogin.getRendaMensal());
 
 			statement.execute();
 			resultSet = statement.getGeneratedKeys();
@@ -119,7 +120,7 @@ public class DAOUsuarioRepository {
 			
 			String sql = "";
 			if(modelLogin.getEndereco().getId() == 0) {
-				sql = "update usuario set login=?, senha=?, email=?, nome=?, perfil =?, sexo = ?, endereco_id = ?, dataNascimento = ? where idusuario = ?;";
+				sql = "update usuario set login=?, senha=?, email=?, nome=?, perfil =?, sexo = ?, endereco_id = ?, dataNascimento = ?, rendaMensal=? where idusuario = ?;";
 				
 				statement = conncetion.prepareStatement(sql);
 
@@ -131,9 +132,10 @@ public class DAOUsuarioRepository {
 				statement.setString(6, modelLogin.getSexo());
 				statement.setInt(7, idEndereco);
 				statement.setString(8, modelLogin.getDataNascimento());
-				statement.setLong(9, modelLogin.getId());
+				statement.setDouble(9, modelLogin.getRendaMensal());
+				statement.setLong(10, modelLogin.getId());
 			}else {			
-				sql = "update usuario set login=?, senha=?, email=?, nome=?, perfil =?, sexo = ?, dataNascimento = ? where idusuario = ?;";
+				sql = "update usuario set login=?, senha=?, email=?, nome=?, perfil =?, sexo = ?, dataNascimento = ?, rendaMensal = ? where idusuario = ?;";
 				
 				statement = conncetion.prepareStatement(sql);
 
@@ -144,7 +146,8 @@ public class DAOUsuarioRepository {
 				statement.setString(5, modelLogin.getPerfil());
 				statement.setString(6, modelLogin.getSexo());
 				statement.setString(7, modelLogin.getDataNascimento());
-				statement.setLong(8, modelLogin.getId());
+				statement.setDouble(8, modelLogin.getRendaMensal());
+				statement.setLong(9, modelLogin.getId());
 			}
 			
 			statement.executeUpdate();
@@ -316,6 +319,7 @@ public class DAOUsuarioRepository {
 				modelLogin.setPerfil(rs.getString("perfil"));
 				modelLogin.setSexo(rs.getString("sexo"));
 				modelLogin.setDataNascimento(rs.getString("dataNascimento"));
+				modelLogin.setRendaMensal(rs.getDouble("rendaMensal"));
 				
 				endereco.setId(rs.getInt("id"));
 				endereco.setCep(rs.getLong("cep"));
@@ -405,6 +409,7 @@ public class DAOUsuarioRepository {
 			usuario.setPerfil(resultSet.getString("perfil"));
 			usuario.setSexo(resultSet.getString("sexo"));
 			usuario.setDataNascimento(resultSet.getString("dataNascimento"));
+			usuario.setRendaMensal(resultSet.getDouble("rendaMensal"));
 			
 			fotouser.setCodFoto(resultSet.getString("fotouser"));
 			fotouser.setExtensao(resultSet.getString("fotouserextensao"));
@@ -449,6 +454,7 @@ public class DAOUsuarioRepository {
 			usuario.setPerfil(resultSet.getString("perfil"));
 			usuario.setSexo(resultSet.getString("sexo"));
 			usuario.setDataNascimento(resultSet.getString("dataNascimento"));
+			usuario.setRendaMensal(resultSet.getDouble("rendaMensal"));
 			
 			fotouser.setCodFoto(resultSet.getString("fotouser"));
 			fotouser.setExtensao(resultSet.getString("fotouserextensao"));
