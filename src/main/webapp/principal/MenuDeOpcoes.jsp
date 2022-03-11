@@ -150,7 +150,7 @@
                                   
                                  
                                       <li class=" ">
-                                          <a href="#" class="waves-effect waves-dark">
+                                          <a href="<%=request.getContextPath()%>/principal/relatorioUser.jsp" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                               <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Usuario</span>
                                               <span class="pcoded-mcaret"></span>

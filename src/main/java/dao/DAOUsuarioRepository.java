@@ -12,6 +12,7 @@ import com.mysql.cj.xdevapi.PreparableStatement;
 
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
+import model.ModelTelefone;
 import model.endereco;
 import model.fotoUser;
 
@@ -22,7 +23,7 @@ public class DAOUsuarioRepository {
 	public DAOUsuarioRepository() {
 		conncetion = SingleConnectionBanco.getConnection();
 	}
-
+	
 	public ModelLogin Salvar(ModelLogin modelLogin, long usuario_id) throws Exception {
 
 		if (modelLogin.isNew()) {
@@ -292,6 +293,41 @@ public class DAOUsuarioRepository {
 		}
 		return ListaDeUsuarios;
 	}
+	
+	public List<ModelLogin> consultarUsuarioListRelatorio(long usuario_id) throws Exception {
+
+		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
+
+		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where useradmin is false and usuario_id = ? order by nome";
+
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		statement.setLong(1, usuario_id);
+
+		ResultSet resultSet = statement.executeQuery();
+
+		while (resultSet.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			endereco endereco = new endereco();
+			List<ModelTelefone> listaTell = new ArrayList<ModelTelefone>();
+			
+			modelLogin.setId(resultSet.getLong("idusuario"));
+			modelLogin.setLogin(resultSet.getString("login"));
+			modelLogin.setEmail(resultSet.getString("email"));
+			modelLogin.setNome(resultSet.getString("nome"));
+			modelLogin.setPerfil(resultSet.getString("perfil"));
+			modelLogin.setSexo(resultSet.getString("sexo"));
+			endereco.setId(resultSet.getInt("endereco_id"));
+			
+			listaTell = this.listarTelefone((int) modelLogin.getId());
+			modelLogin.setListaDeTelefones(listaTell);
+			
+			modelLogin.setEndereco(endereco);
+
+			ListaDeUsuarios.add(modelLogin);
+		}
+		return ListaDeUsuarios;
+	}
+
 
 	public ModelLogin ConsultarUsuario(String login, long usuario_id) {
 
@@ -526,6 +562,31 @@ public class DAOUsuarioRepository {
 		int paginanova = (int) pagina;
 		
 		return paginanova;
+	}
+	
+public List<ModelTelefone> listarTelefone(int idUserPai) throws Exception{
+		
+		String sql = "select * from telefone where idUsuarioPai = ?";
+		List<ModelTelefone> listaTelefones = new ArrayList<ModelTelefone>();
+		
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		statement.setInt(1, idUserPai);
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		while(resultSet.next()) {
+			ModelTelefone modelTelefone = new ModelTelefone();
+			
+			modelTelefone.setTelefone(resultSet.getString("numero"));
+			modelTelefone.setIdTelefone(resultSet.getInt("idTelefone"));
+			modelTelefone.setUsuario_cad(this.buscarUsuarioPorId(resultSet.getLong("idUsuarioCad")));
+			
+			modelTelefone.setUsuario_pai(this.buscarUsuarioPorId(resultSet.getInt("idUsuarioPai")));
+			
+			listaTelefones.add(modelTelefone);
+		}
+		return listaTelefones;
+		
 	}
 
 }

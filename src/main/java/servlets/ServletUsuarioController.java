@@ -137,6 +137,19 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 				response.addHeader("totalPagina", ""+daoUsuarioRepository.consultarUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUsuario_id(request)));
 				response.getWriter().write(Json);
+			
+			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatorio")) {
+				String dataInicial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				request.setAttribute("dataInicial", dataInicial);
+				request.setAttribute("dataFinal", dataFinal);
+				
+				if((dataInicial == null || dataInicial.isEmpty()) && (dataFinal == null || dataFinal.isEmpty()) ) {
+					request.setAttribute("listUser", daoUsuarioRepository.consultarUsuarioListRelatorio(super.getUsuario_id(request)));
+				}
+				
+				request.getRequestDispatcher("principal/relatorioUser.jsp").forward(request, response);
 			}
 			
 			else {

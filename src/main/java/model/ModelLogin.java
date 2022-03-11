@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModelLogin implements Serializable {
 
@@ -19,6 +21,17 @@ public class ModelLogin implements Serializable {
 
 	private fotoUser fotouser;
 	private endereco endereco;
+	
+	private List<ModelTelefone> listaDeTelefones = new ArrayList<ModelTelefone>();
+	
+
+	public List<ModelTelefone> getListaDeTelefones() {
+		return listaDeTelefones;
+	}
+
+	public void setListaDeTelefones(List<ModelTelefone> listaDeTelefones) {
+		this.listaDeTelefones = listaDeTelefones;
+	}
 
 	public endereco getEndereco() {
 		return endereco;
