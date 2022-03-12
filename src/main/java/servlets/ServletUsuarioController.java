@@ -147,9 +147,12 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				
 				if((dataInicial == null || dataInicial.isEmpty()) && (dataFinal == null || dataFinal.isEmpty()) ) {
 					request.setAttribute("listUser", daoUsuarioRepository.consultarUsuarioListRelatorio(super.getUsuario_id(request)));
-				}
+				}else {
 				
+				request.setAttribute("listUser", daoUsuarioRepository.consultarUsuarioListRelatorio(super.getUsuario_id(request),dataInicial, dataFinal));
+				}
 				request.getRequestDispatcher("principal/relatorioUser.jsp").forward(request, response);
+				
 			}
 			
 			else {

@@ -298,10 +298,46 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
 
-		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where useradmin is false and usuario_id = ? order by nome";
+		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where useradmin is false and usuario_id = ?";
 
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 		statement.setLong(1, usuario_id);
+
+		ResultSet resultSet = statement.executeQuery();
+
+		while (resultSet.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			endereco endereco = new endereco();
+			List<ModelTelefone> listaTell = new ArrayList<ModelTelefone>();
+			
+			modelLogin.setId(resultSet.getLong("idusuario"));
+			modelLogin.setLogin(resultSet.getString("login"));
+			modelLogin.setEmail(resultSet.getString("email"));
+			modelLogin.setNome(resultSet.getString("nome"));
+			modelLogin.setPerfil(resultSet.getString("perfil"));
+			modelLogin.setSexo(resultSet.getString("sexo"));
+			endereco.setId(resultSet.getInt("endereco_id"));
+			
+			listaTell = this.listarTelefone((int) modelLogin.getId());
+			modelLogin.setListaDeTelefones(listaTell);
+			
+			modelLogin.setEndereco(endereco);
+
+			ListaDeUsuarios.add(modelLogin);
+		}
+		return ListaDeUsuarios;
+	}
+	
+	public List<ModelLogin> consultarUsuarioListRelatorio(long usuario_id, String dataInicial, String dataFinal) throws Exception {
+
+		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
+
+		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where useradmin is false and usuario_id = ? and dataNascimento >= ? and dataNascimento <= ?";
+
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		statement.setLong(1, usuario_id);
+		statement.setString(2, dataInicial);
+		statement.setString(3, dataFinal);
 
 		ResultSet resultSet = statement.executeQuery();
 
