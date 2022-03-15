@@ -53,7 +53,7 @@
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="get" id="formRelUsuario">
 
-																<input type="hidden" name="acao" value="imprimirRelatorio">
+																<input type="hidden" name="acao" id="acaoRelatorioImprimirTipo" value="imprimirRelatorioUser">
 																
 															<div class="form-row align-items-center">
 															
@@ -73,7 +73,8 @@
 																
 																
 																<div class="col-auto">
-																	<button type="submit" class="btn btn-primary mb-2">IMPRIMIR RELATORIO</button>
+																	<button type="button" onclick="imprimirHtml();" class="btn btn-primary mb-2">IMPRIMIR RELATORIO</button>
+																	<button type="button" onclick="imprimirPDF();" class="btn btn-primary mb-2">IMPRIMIR PDF</button>
 																</div>
 															</div>
 														</form>
@@ -124,6 +125,23 @@
 
 
 	<jsp:include page="JavaScriptFile.jsp"></jsp:include>
+	
+	<script type="text/javascript">
+	
+		function imprimirHtml() {
+			document.querySelector('#acaoRelatorioImprimirTipo').value = 'imprimirRelatorioUser';
+			document.querySelector('#formRelUsuario').submit();
+			
+			
+		}
+		
+		function imprimirPDF() {
+			document.querySelector('#acaoRelatorioImprimirTipo').value = 'imprimirRelatorioPDF';
+			document.querySelector('#formRelUsuario').submit();
+			
+			
+		}
+	</script>
 </body>
 
 </html>

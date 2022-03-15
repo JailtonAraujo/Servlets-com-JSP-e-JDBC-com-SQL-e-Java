@@ -11,6 +11,7 @@ import jakarta.servlet.http.Part;
 import model.ModelLogin;
 import model.endereco;
 import model.fotoUser;
+import util.reportUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -138,7 +139,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				response.addHeader("totalPagina", ""+daoUsuarioRepository.consultarUsuarioListTotalPaginaPaginacao(nomeBusca, super.getUsuario_id(request)));
 				response.getWriter().write(Json);
 			
-			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatorio")) {
+			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatorioUser")) {
 				String dataInicial = request.getParameter("dataInicial");
 				String dataFinal = request.getParameter("dataFinal");
 				
@@ -152,6 +153,31 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				request.setAttribute("listUser", daoUsuarioRepository.consultarUsuarioListRelatorio(super.getUsuario_id(request),dataInicial, dataFinal));
 				}
 				request.getRequestDispatcher("principal/relatorioUser.jsp").forward(request, response);
+				
+			}
+			 
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("imprimirRelatorioPDF")) {
+				String dataInicial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				request.setAttribute("dataInicial", dataInicial);
+				request.setAttribute("dataFinal", dataFinal);
+				
+				List<ModelLogin> modelLogins = null;
+				
+				if((dataInicial == null || dataInicial.isEmpty()) && (dataFinal == null || dataFinal.isEmpty()) ) {
+					
+					modelLogins = daoUsuarioRepository.consultarUsuarioListRelatorio(super.getUsuario_id(request));
+					
+				}else {
+					modelLogins = daoUsuarioRepository.consultarUsuarioListRelatorio(super.getUsuario_id(request),dataInicial, dataFinal);
+				}
+				
+				byte [] relatorio = new reportUtil().gerarRelatorioPDF(modelLogins, "rel-user-jsp", request.getServletContext());
+				
+				response.setHeader("Content-Disposition", "attachment;filename=relatorio.pdf");
+				response.getOutputStream().write(relatorio);
+				
 				
 			}
 			

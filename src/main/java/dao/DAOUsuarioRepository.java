@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -298,7 +300,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
 
-		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where useradmin is false and usuario_id = ?";
+		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id, dataNascimento from usuario where useradmin is false and usuario_id = ?";
 
 		PreparedStatement statement = conncetion.prepareStatement(sql);
 		statement.setLong(1, usuario_id);
@@ -315,6 +317,11 @@ public class DAOUsuarioRepository {
 			modelLogin.setEmail(resultSet.getString("email"));
 			modelLogin.setNome(resultSet.getString("nome"));
 			modelLogin.setPerfil(resultSet.getString("perfil"));
+			if(resultSet.getString("dataNascimento") != null && !resultSet.getString("dataNascimento").isEmpty()) {
+				modelLogin.setDataNascimento(LocalDate.parse(resultSet.getString("dataNascimento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			}else {	
+				modelLogin.setDataNascimento(resultSet.getString("dataNascimento"));
+			}
 			modelLogin.setSexo(resultSet.getString("sexo"));
 			endereco.setId(resultSet.getInt("endereco_id"));
 			
