@@ -8,6 +8,7 @@
 			<style backcolor="#16F5E6"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="PARAM_SUB_REPORT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -17,6 +18,33 @@
 	<field name="dataNascimento" class="java.lang.String">
 		<fieldDescription><![CDATA[dataNascimento]]></fieldDescription>
 	</field>
+	<field name="listaDeTelefones" class="java.util.List">
+		<fieldDescription><![CDATA[listaDeTelefones]]></fieldDescription>
+	</field>
+	<group name="grupo_user">
+		<groupExpression><![CDATA[$F{nome}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<textField>
+					<reportElement x="0" y="0" width="100" height="21" uuid="f4ea9d1f-eecf-437b-b13c-4f5a0e003e45">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8586df0-d73c-4709-8fb5-6cae970479a2"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="410" y="0" width="100" height="21" uuid="2a68f9e3-2658-4472-9b4b-b696a3ed2ddc">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cb85f9a6-b2a2-42d3-ad27-02937b3ace85"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement style="row" x="0" y="20" width="555" height="1" uuid="ee2d1bb4-88eb-4494-9c11-1ebaff5ad53b">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
 	<title>
 		<band height="89" splitType="Stretch">
 			<staticText>
@@ -54,33 +82,18 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="16" splitType="Stretch">
-			<frame>
-				<reportElement style="row" x="0" y="0" width="540" height="16" uuid="cc809ad6-e8ec-489c-bb78-d26c6a84c3e0"/>
-				<textField isBlankWhenNull="true">
-					<reportElement style="row" x="409" y="0" width="120" height="16" uuid="420a0781-031b-4729-953e-3c22f91aeab1">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dcac075-83ac-4e3f-9e91-868c0f650037"/>
-					</reportElement>
-					<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement style="row" x="-1" y="-2" width="180" height="20" uuid="49ac98a4-2ebb-4cf8-9e64-77ccfd113fa4">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a35eccab-a43a-48ac-a443-7ada4b0d74bc"/>
-					</reportElement>
-					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-				</textField>
-			</frame>
+		<band height="23" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="554" height="23" uuid="98170be5-73aa-4f5a-9a50-5248e5b3bc20"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource( $F{listaDeTelefones})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{PARAM_SUB_REPORT} +"rel_users.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="29" splitType="Stretch">
-			<line>
-				<reportElement style="row" x="0" y="0" width="555" height="1" uuid="ee2d1bb4-88eb-4494-9c11-1ebaff5ad53b">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-			</line>
 			<textField>
-				<reportElement x="454" y="10" width="100" height="19" uuid="089e212d-ae89-4c50-9f8e-015b276489f1"/>
+				<reportElement x="510" y="10" width="44" height="19" uuid="089e212d-ae89-4c50-9f8e-015b276489f1"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
