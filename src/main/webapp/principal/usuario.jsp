@@ -44,8 +44,13 @@
 						<!-- Page-header start -->
 						<jsp:include page="PageHeader.jsp"></jsp:include>
 
-						<div class="pcoded-inner-content">
-							<!-- Main-body start -->
+						 <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
 
 							<div class="card">
 							
@@ -141,7 +146,7 @@
 														out.print(" ");
 														out.print("selected=\"selected\"");
 														out.print(" ");
-													}%>>Secret�ria</option>
+													}%>>Secretaria</option>
 
 												<option value="AUXILIAR"
 													<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
@@ -309,6 +314,11 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
 
 	<!-- Modal -->
 	<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog"
