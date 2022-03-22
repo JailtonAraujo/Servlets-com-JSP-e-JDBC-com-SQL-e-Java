@@ -77,12 +77,12 @@
 																</div>
 															</div>
 														</form>
+														<div>
+														<canvas id="myChart"></canvas>
+													</div>
 													</div>
 												</div>
 												
-													<div>
-														<canvas id="myChart"></canvas>
-													</div>
 												
 											</div>
 

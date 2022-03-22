@@ -231,7 +231,7 @@
 												value="MASCULINO"
 												<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 
-												if (modelLogin != null && modelLogin.getPerfil().equals("MASCULINO")) {
+												if (modelLogin != null && modelLogin.getSexo().equals("MASCULINO")) {
 													out.print(" ");
 													out.print("checked=\"checked\"");
 													out.print(" ");
@@ -241,11 +241,11 @@
 											<input type="radio" name="sexo" value="FEMININO"
 												<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
 
-											if (modelLogin != null && modelLogin.getPerfil().equals("FEMININO")) {
+											if (modelLogin != null && modelLogin.getSexo().equals("FEMININO")) {
 												out.print(" ");
 												out.print("checked=\"checked\"");
 												out.print(" ");
-											}%>>Feminino</>
+											}%>>Feminino </>
 										</div>
 
 
