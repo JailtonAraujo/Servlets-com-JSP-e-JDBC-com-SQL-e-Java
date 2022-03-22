@@ -24,6 +24,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beandto.BeanDtoGraficoSalarioUser;
 import dao.DAOUsuarioRepository;
 
 @MultipartConfig
@@ -184,7 +185,27 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				response.getOutputStream().write(relatorio);
 				
 				
+			} else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("graficoSalario")) {
+				
+				String dataInicial = request.getParameter("dataInicial");
+				String dataFinal = request.getParameter("dataFinal");
+				
+				BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = new BeanDtoGraficoSalarioUser();
+				
+				if((dataInicial == null || dataInicial.isEmpty()) && (dataFinal == null || dataFinal.isEmpty()) ) {
+					beanDtoGraficoSalarioUser = daoUsuarioRepository.montarGraficoMediaSalario(super.getUsuario_id(request));
+				}else {
+					beanDtoGraficoSalarioUser = daoUsuarioRepository.montarGraficoMediaSalario(super.getUsuario_id(request),dataInicial,dataFinal);
+				}
+				
+				ObjectMapper mapper = new ObjectMapper();
+				String json = mapper.writeValueAsString(beanDtoGraficoSalarioUser);
+				
+				response.getWriter().write(json);
+				
 			}
+			 
+			 
 			
 			else {
 				

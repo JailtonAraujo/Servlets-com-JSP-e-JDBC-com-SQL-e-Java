@@ -1,23 +1,25 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
-
+import beandto.BeanDtoGraficoSalarioUser;
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
 import model.ModelTelefone;
 import model.endereco;
 import model.fotoUser;
 
+@SuppressWarnings({"resource","unused"})
 public class DAOUsuarioRepository {
 
 	private Connection conncetion;
@@ -630,6 +632,64 @@ public List<ModelTelefone> listarTelefone(int idUserPai) throws Exception{
 		}
 		return listaTelefones;
 		
+	}
+
+	public BeanDtoGraficoSalarioUser montarGraficoMediaSalario(Long userLogado)throws Exception {
+		String sql = "select avg (rendaMensal) as media_salarial, perfil from usuario where usuario_id = ? group by perfil;";
+		
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		statement.setLong(1, userLogado);
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = new BeanDtoGraficoSalarioUser();
+		
+		List<String> listPerfil = new ArrayList<String>();
+		List<Double> listMediaSalarial = new ArrayList<Double>();
+		
+		while(resultSet.next()){
+			double mediaSalarial = resultSet.getDouble("media_salarial");
+			String perfil = resultSet.getString("perfil");
+			
+			listMediaSalarial.add(mediaSalarial);
+			listPerfil.add(perfil);
+		}
+		
+		beanDtoGraficoSalarioUser.setListMediaSalarial(listMediaSalarial);
+		beanDtoGraficoSalarioUser.setListPerfil(listPerfil);
+		
+		return beanDtoGraficoSalarioUser;
+
+	}
+	
+	public BeanDtoGraficoSalarioUser montarGraficoMediaSalario(Long userLogado, String dataInicial, String dataFinal)throws Exception {
+		String sql = "select avg (rendaMensal) as media_salarial, perfil from usuario where usuario_id = ? and dataNascimento >= ? and dataNascimento <= ? group by perfil;";
+		
+		PreparedStatement statement = conncetion.prepareStatement(sql);
+		statement.setLong(1, userLogado);
+		statement.setString(2, dataInicial);
+		statement.setString(3, dataFinal);
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		BeanDtoGraficoSalarioUser beanDtoGraficoSalarioUser = new BeanDtoGraficoSalarioUser();
+		
+		List<String> listPerfil = new ArrayList<String>();
+		List<Double> listMediaSalarial = new ArrayList<Double>();
+		
+		while(resultSet.next()){
+			double mediaSalarial = resultSet.getDouble("media_salarial");
+			String perfil = resultSet.getString("perfil");
+			
+			listMediaSalarial.add(mediaSalarial);
+			listPerfil.add(perfil);
+		}
+		
+		beanDtoGraficoSalarioUser.setListMediaSalarial(listMediaSalarial);
+		beanDtoGraficoSalarioUser.setListPerfil(listPerfil);
+		
+		return beanDtoGraficoSalarioUser;
+
 	}
 
 }

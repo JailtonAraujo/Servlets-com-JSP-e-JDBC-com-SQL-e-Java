@@ -51,7 +51,7 @@
 
 														<form class="form-material"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
-															method="get" id="formRelUsuario">
+															method="get" id="formRelGrafico">
 
 																<input type="hidden" name="acao" id="acaoRelatorioImprimirTipo" value="imprimirRelatorioUser">
 																
@@ -107,30 +107,48 @@
 	<script type="text/javascript">
 
 	
+	var myChart = new Chart(document.getElementById('myChart'));
+	
 		function gerarGrafico(){
-			const myChart = new Chart(
-				    document.getElementById('myChart'),
-				    {
-					    type: 'line',
-					    data: {
-						    labels: [
-							    'January',
-							    'February',
-							    'March',
-							    'April',
-							    'May',
-							    'June',
-							  ],
-						    datasets: [{
-						      label: 'Gráfrico de média salario por tipo',
-						      backgroundColor: 'rgb(255, 99, 132)',
-						      borderColor: 'rgb(255, 99, 132)',
-						      data: [0, 10, 5, 2, 20, 30, 45],
-						    }]
-						  },
-					    options: {}
-					  }
-				  );
+			
+			let urlAction = document.querySelector('#formRelGrafico').action;
+			let dataInicial = document.querySelector('#dataInicial').value;
+			let dataFinal = document.querySelector('#dataFinal').value;
+			
+			
+			$.ajax({
+                method: "get",
+                url: urlAction,
+                data: "dataInicial=" +dataInicial+'&dataFinal='+dataFinal+'&acao=graficoSalario',
+                success: function (response) {
+                	
+                	let json = JSON.parse(response);
+                	
+                	myChart.destroy();
+                    
+                    	myChart = new Chart(
+        				    document.getElementById('myChart'),
+        				    {
+        					    type: 'line',
+        					    data: {
+        						    labels: json.listPerfil,
+        						    datasets: [{
+        						      label: 'Gráfrico de média salario por tipo',
+        						      backgroundColor: 'rgb(255, 99, 132)',
+        						      borderColor: 'rgb(255, 99, 132)',
+        						      data: json.listMediaSalarial,
+        						    }]
+        						  },
+        					    options: {}
+        					  }
+        				  );
+                }
+            }).fail(function (xhr, errorThrown) {
+                alert('erro ao buscar dados para grafico!' + xhr.responseText);
+            });
+			
+			
+			
 		}
 	
 		function imprimirHtml() {
