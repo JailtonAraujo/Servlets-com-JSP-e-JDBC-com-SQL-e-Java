@@ -7,7 +7,7 @@
                                   <div class="col-md-8">
                                       <div class="page-header-title">
                                           <h5 class="m-b-10">JAVA SERVLET PAGES</h5>
-                                          <p class="m-b-0">Bem Vindo!</p>
+                                          <p class="m-b-0">Jailton de Araujo Santos!</p>
                                       </div>
                                   </div>
                                   <div class="col-md-4">

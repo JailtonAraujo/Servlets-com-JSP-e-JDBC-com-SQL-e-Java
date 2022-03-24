@@ -3,7 +3,7 @@
     
     
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style=" scroll-behavior: auto;">
 
 		<!-- head do projeto-->
 <jsp:include page="head.jsp"></jsp:include>
