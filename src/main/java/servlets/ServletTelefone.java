@@ -49,6 +49,8 @@ public class ServletTelefone extends ServletUtilGeneric {
 		
 		request.setAttribute("msg", "Excluido com sucesso!");
 		
+		request.setAttribute("perfil", super.getUsuarioLogado(request).getPerfil());
+		
 		request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
 		
 		return;
@@ -68,12 +70,15 @@ public class ServletTelefone extends ServletUtilGeneric {
 			
 			request.setAttribute("modelTelefones", modelTelefones);
 			
+			request.setAttribute("perfil", super.getUsuarioLogado(request).getPerfil());
+			
 			request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
 		
 		}else {
 			List<ModelLogin> modelLogins = daoUsuarioRepository.consultarUsuarioListPaginado(this.getUsuario_id(request), 0);
 			request.setAttribute("totalPagina", daoUsuarioRepository.totalPagina(this.getUsuario_id(request)));
 			request.setAttribute("modelLogins", modelLogins);
+			request.setAttribute("perfil", super.getUsuarioLogado(request).getPerfil());
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 		}
 		
@@ -113,6 +118,7 @@ public class ServletTelefone extends ServletUtilGeneric {
 		
 		request.setAttribute("modelLogin", usuario);
 		request.setAttribute("modelTelefones", modelTelefones);
+		request.setAttribute("perfil", super.getUsuarioLogado(request).getPerfil());
 		request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
 		
 		}catch(Exception e) {

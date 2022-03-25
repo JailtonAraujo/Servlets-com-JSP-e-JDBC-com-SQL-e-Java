@@ -251,14 +251,19 @@
 
 										<p id="msg">${msg }</p>
 
-										<button class="btn btn-primary waves-effect waves-light"
+										<c:if test="${perfil == 'ADMIN'}">
+											<button class="btn btn-primary waves-effect waves-light"
 											id="btn-salvar">SALVAR</button>
-										<button type="button"
-											class="btn btn-success waves-effect waves-light"
-											onclick="limparCampos();">NOVO</button>
 										<button type="button"
 											class="btn btn-info waves-effect waves-light"
 											onclick="criarDeleteComAjax();">EXCLUIR</button>
+										</c:if>
+										
+										
+										
+										<button type="button"
+											class="btn btn-success waves-effect waves-light"
+											onclick="limparCampos();">NOVO</button>
 											
 										<c:if test="${modelLogin.id>0 }">
 										<a href="<%=request.getContextPath()%>/ServletTelefone?idUser=${modelLogin.id}" class="btn btn-primary waves-effect waves-light">Telefone</a>
@@ -277,7 +282,9 @@
 													<th scope="col">ID:</th>
 													<th scope="col">Nome:</th>
 													<th scope="col">Ver:</th>
+													<c:if test="${perfil == 'ADMIN'}">
 													<th scope="col">Excluir:</th>
+													</c:if>
 												</tr>
 											</thead>
 											<tbody>
@@ -286,7 +293,11 @@
 														<td> <c:out value="${ml.id}"></c:out> </td>
 														<td> <c:out value="${ml.nome }"></c:out> </td>
 														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscarEditar&id=${ml.id}" type="button" class="btn btn-info" >Ver</a> </td>
+														<c:if test="${perfil == 'ADMIN'}">
 														<td> <a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=exlcuirTagLib&id=${ml.id}&idEndereco=${ml.endereco.id}" type="button" class="btn btn-danger" >Excluir</a> </td>
+														</c:if>
+														
+														
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -295,7 +306,7 @@
 									<nav aria-label="Page navigation example">
 									  	<ul class="pagination">
 									  	<%
-									  	out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/ServletUsuarioController?acao=paginar&pagina="+(0 * 5)+"\">Primeira</a></li>");
+									  	
 									  		int totalPagina = (int) request.getAttribute("totalPagina");
 									  	
 									  		int paginaAtual = 0;
@@ -304,7 +315,7 @@
 									  			String url = request.getContextPath() + "/ServletUsuarioController?acao=paginar&pagina="+(p * 5);
 									  			out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+url+"\">"+(p+1)+"</a></li>");
 									  		}
-									  		out.print("<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/ServletUsuarioController?acao=paginar&pagina="+((totalPagina-1) * 5)+"\">Ultima</a></li>");
+									  		
 									  	%>
 									  </ul>
 									</nav>

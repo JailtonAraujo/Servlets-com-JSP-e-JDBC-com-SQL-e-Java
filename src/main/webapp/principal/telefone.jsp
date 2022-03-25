@@ -62,16 +62,18 @@
 																readonly="readonly" value="${modelLogin.nome }"> <span
 																class="form-bar"></span> <label class="float-label">NOME:</label>
 														</div>
-
+															
+															<c:if test="${perfil == 'ADMIN'}">
 															<div class="form-group form-default form-static-label">
 																<input type="number" class="form-control" name="numero"
 																	id="numero" required="required"> <span
 																	class="form-bar"></span> <label class="float-label">NUMERO
 																	DO TELEFONE:</label>
 															</div>
-
-															<button class="btn btn-primary waves-effect waves-light"
+																
+																	<button class="btn btn-primary waves-effect waves-light"
 																id="btn-salvar">SALVAR</button>
+																</c:if>
 														</form>
 														<span id="msg">${msg}</span>
 														</div>
@@ -84,7 +86,9 @@
 															<tr>
 																<th scope="col">ID:</th>
 																<th scope="col">Numero:</th>
+																<c:if test="${perfil == 'ADMIN'}">
 																<th scope="col">Excluir:</th>
+																</c:if>
 															</tr>
 														</thead>
 														<tbody>
@@ -92,10 +96,12 @@
 																<tr>
 																	<td><c:out value="${f.idTelefone}"></c:out></td>
 																	<td><c:out value="${f.telefone }"></c:out></td>
-	
+																	<c:if test="${perfil == 'ADMIN'}">
 																	<td><a
 																		href="<%=request.getContextPath()%>/ServletTelefone?acao=excluir&id=${f.idTelefone}&userPai=${modelLogin.id}"
 																		type="button" class="btn btn-danger">Excluir</a></td>
+																	</c:if>	
+																	
 																</tr>
 															</c:forEach>
 														</tbody>

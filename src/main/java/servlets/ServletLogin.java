@@ -33,8 +33,7 @@ public class ServletLogin extends HttpServlet implements Servlet {
 		
 		if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
 			request.getSession().invalidate();
-			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
-			redirecionar.forward(request, response);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}else {
 			doPost(request, response);
 		}

@@ -3,11 +3,11 @@
     
     
 <head>
-    <title>Projeto jsp </title>
+    <title>Projeto jsp</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="description" content="Projeto de Estudos Feito jsp" />
+      <meta name="description" content="Projeto de Estudos Feito Em jsp" />
       <meta name="author" content="Jailton de Araujo Santos" />
       <!-- Favicon icon -->
       <link rel="icon" href="<%=request.getContextPath()%>/assets/images/gato-preto.png" type="image/x-icon">

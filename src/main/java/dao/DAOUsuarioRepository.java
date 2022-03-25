@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.oracle.wls.shaded.org.apache.bcel.generic.NEW;
+
 import beandto.BeanDtoGraficoSalarioUser;
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
@@ -59,7 +61,7 @@ public class DAOUsuarioRepository {
 			statement.setString(6, modelLogin.getPerfil());
 			statement.setString(7, modelLogin.getSexo());
 			statement.setInt(8, idContato);
-			statement.setString(9, modelLogin.getDataNascimento());
+			statement.setDate(9,Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("yyyy-MM-dd").parse(modelLogin.getDataNascimento())) ));
 			statement.setDouble(10, modelLogin.getRendaMensal());
 
 			statement.execute();
@@ -136,7 +138,7 @@ public class DAOUsuarioRepository {
 				statement.setString(5, modelLogin.getPerfil());
 				statement.setString(6, modelLogin.getSexo());
 				statement.setInt(7, idEndereco);
-				statement.setString(8, modelLogin.getDataNascimento());
+				statement.setDate(8, Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("yyyy-MM-dd").parse(modelLogin.getDataNascimento())) ));
 				statement.setDouble(9, modelLogin.getRendaMensal());
 				statement.setLong(10, modelLogin.getId());
 			}else {			
@@ -150,7 +152,7 @@ public class DAOUsuarioRepository {
 				statement.setString(4, modelLogin.getNome());
 				statement.setString(5, modelLogin.getPerfil());
 				statement.setString(6, modelLogin.getSexo());
-				statement.setString(7, modelLogin.getDataNascimento());
+				statement.setDate(7, Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("yyyy-MM-dd").parse(modelLogin.getDataNascimento())) ));
 				statement.setDouble(8, modelLogin.getRendaMensal());
 				statement.setLong(9, modelLogin.getId());
 			}
