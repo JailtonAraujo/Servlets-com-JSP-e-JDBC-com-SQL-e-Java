@@ -31,7 +31,7 @@
                 <label for="exampleInputEmail1" class="form-label">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" required>
               </div>
-              <div>${msg}, <a href="<%= request.getContextPath()%>/index.jsp">Voltar ao login!</a></div>
+              <div>${msg}</a></div>
               <button type="submit">Salvar</button>
         </form>
 

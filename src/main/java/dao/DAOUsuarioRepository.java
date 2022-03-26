@@ -696,14 +696,16 @@ public List<ModelTelefone> listarTelefone(int idUserPai) throws Exception{
 	
 	public void cadastrarUsuarioVisitante(ModelLogin modelLogin)throws Exception {
 		
-		String sql = "insert into usuario (nome, email, senha, login, usuario_id) values (?, ?, ?, ?, ?)";
+		String sql = "insert into usuario (nome, email, senha, login, perfil, sexo, usuario_id) values (?, ?, ?, ?, ?, ?, ?)";
 		
 		PreparedStatement statement = conncetion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, modelLogin.getNome());
 		statement.setString(2, modelLogin.getEmail());
 		statement.setString(3, modelLogin.getSenha());
 		statement.setString(4, modelLogin.getLogin());
-		statement.setInt(5, 0);
+		statement.setString(5, modelLogin.getPerfil());
+		statement.setString(6, modelLogin.getSexo());
+		statement.setInt(7, 0);
 		
 		statement.executeUpdate();
 		ResultSet resultSet = statement.getGeneratedKeys();

@@ -45,7 +45,7 @@ button{
     width: 50%;
     height: 50px;
     border-radius: 5px;
-    position: relative;
+    margin-top:3%;
     top: 10%;
     background: none;
     border: none;
@@ -64,4 +64,11 @@ button:active{
 
 h3{
     text-shadow: 2px 2px #000000;
+}
+
+
+@media (min-width: 670px) {
+  body {
+    background-color: black;
+  }
 }

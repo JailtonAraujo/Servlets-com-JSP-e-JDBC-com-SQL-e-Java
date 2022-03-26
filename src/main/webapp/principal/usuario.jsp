@@ -58,10 +58,13 @@
 									<h5>Cadastro De Usuario.</h5>
 									<!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
 								</div>
+								<c:if test="${perfil == 'VISITANTE'}">
 								<div class="card-header">
-									<small>Olá visitante, você não pode fazer alterações neste sistema entre em contato com o <a href="#">desenvolvedor</a> e solicite permição!</small>
+									<small>Olá visitante, você não pode fazer alterações neste sistema, entre em contato com o <a href="<%=request.getContextPath()%>/principal/about.jsp">desenvolvedor</a> e solicite permição!</small>
 									<!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
 								</div>
+								</c:if>
+								
 								<div class="card-block">
 								
 									<form class="form-material" enctype="multipart/form-data"

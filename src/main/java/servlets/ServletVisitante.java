@@ -40,6 +40,8 @@ public class ServletVisitante extends HttpServlet implements Servlet {
 			 visitante.setEmail(email);
 			 visitante.setSenha(senha);
 			 visitante.setLogin(login);
+			 visitante.setPerfil("VISITANTE");
+			 visitante.setSexo("MASCULINO");
 			 String msg = "";
 			 
 			if(daoUsuarioRepository.ValidarLogin(login) == false) {
