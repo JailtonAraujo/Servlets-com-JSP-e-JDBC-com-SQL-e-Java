@@ -62,6 +62,9 @@
 	</title>
 	<columnHeader>
 		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="554" height="20" backcolor="#BFBFBF" uuid="7da1971e-c0e8-4903-b2c7-1f931b1c2a21"/>
+			</frame>
 			<staticText>
 				<reportElement x="0" y="0" width="87" height="20" uuid="b6d4561a-a8b4-4aa9-bc1b-a01beca06f30">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a35eccab-a43a-48ac-a443-7ada4b0d74bc"/>

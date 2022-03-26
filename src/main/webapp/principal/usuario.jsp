@@ -118,7 +118,7 @@
 										</div>
 										<div class="form-group form-default form-static-label">
 											<input type="date" class="form-control" name="dataNascimento" id="dataNascimento"
-												value="${modelLogin.dataNascimento }"> <span
+												value="${modelLogin.dataNascimento }" required="required"> <span
 												class="form-bar"></span> <label class="float-label">Dat.Nascimento:</label>
 										</div>
 										<div class="form-group form-default form-static-label">
@@ -180,10 +180,10 @@
 										<div class="form-group form-default form-static-label">
 											<input type="text" name="idendereco"
 												value="${modelLogin.endereco.id}" hidden> <input
-												type="number" name="cep" id="cep" class="form-control"
+												type="text" name="cep" id="cep" class="form-control"
 												required="" autocomplete="off"
 												value="${modelLogin.endereco.cep}"> <span
-												class="form-bar"></span> <label class="float-label">Cep:</label>
+												class="form-bar"></span> <label class="float-label">Cep: (Somente numeros!)</label>
 											<p id="alert"></p>
 										</div>
 
@@ -540,6 +540,8 @@
 
 						document.querySelector('#localidade').value = data.localidade;
 						document.querySelector('#estado').value = data.uf;
+						document.querySelector('#logradouro').value = data.logradouro;
+						document.querySelector('#bairro').value = data.bairro;
 
 
 					})
@@ -550,6 +552,8 @@
 					document.querySelector('#alert').style.color = 'red';
 					document.querySelector('#localidade').value = '';
 					document.querySelector('#estado').value = '';
+					document.querySelector('#logradouro').value = '';
+					document.querySelector('#bairro').value = '';
 					
 				})
 				}
@@ -558,7 +562,8 @@
 				document.querySelector('#alert').style.color = 'red';
 				document.querySelector('#localidade').value = '';
 				document.querySelector('#estado').value = '';
-				
+				document.querySelector('#logradouro').value = '';
+				document.querySelector('#bairro').value = '';
 				
 			})
 			
