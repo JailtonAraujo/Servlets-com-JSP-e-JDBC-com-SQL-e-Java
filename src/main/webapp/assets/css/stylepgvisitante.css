@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(to left, #4682B4,#008080);
+}
+
+.main{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+width: 80%;
+}
+
+.cad-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    width: 50%;
+    height: 60vh;
+   background-color: rgb(54, 57, 69);
+   box-shadow: inset 1px 1px 4px #999;
+ 
+}
+
+.mb-3{
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button{
+    width: 50%;
+    height: 50px;
+    border-radius: 5px;
+    position: relative;
+    top: 10%;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;   
+    background-color: #000000;
+}
+
+button:hover{
+    box-shadow: 0 0 1em #40E0D0;  
+}
+
+button:active{
+    box-shadow: 0 0 1em #00FF00;
+}
+
+h3{
+    text-shadow: 2px 2px #000000;
+}

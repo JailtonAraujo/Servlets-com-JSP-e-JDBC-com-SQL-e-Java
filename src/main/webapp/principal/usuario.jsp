@@ -58,7 +58,12 @@
 									<h5>Cadastro De Usuario.</h5>
 									<!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
 								</div>
+								<div class="card-header">
+									<small>Olá visitante, você não pode fazer alterações neste sistema entre em contato com o <a href="#">desenvolvedor</a> e solicite permição!</small>
+									<!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+								</div>
 								<div class="card-block">
+								
 									<form class="form-material" enctype="multipart/form-data"
 										action="<%=request.getContextPath()%>/ServletUsuarioController"
 										method="post" id="formUser">

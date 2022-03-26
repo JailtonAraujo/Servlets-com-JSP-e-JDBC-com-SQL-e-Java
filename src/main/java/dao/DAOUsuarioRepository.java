@@ -693,5 +693,31 @@ public List<ModelTelefone> listarTelefone(int idUserPai) throws Exception{
 		return beanDtoGraficoSalarioUser;
 
 	}
+	
+	public void cadastrarUsuarioVisitante(ModelLogin modelLogin)throws Exception {
+		
+		String sql = "insert into usuario (nome, email, senha, login, usuario_id) values (?, ?, ?, ?, ?)";
+		
+		PreparedStatement statement = conncetion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		statement.setString(1, modelLogin.getNome());
+		statement.setString(2, modelLogin.getEmail());
+		statement.setString(3, modelLogin.getSenha());
+		statement.setString(4, modelLogin.getLogin());
+		statement.setInt(5, 0);
+		
+		statement.executeUpdate();
+		ResultSet resultSet = statement.getGeneratedKeys();
+		resultSet.next();
+		
+		int usuario_id = resultSet.getInt(1);
+		
+		statement = conncetion.prepareStatement("update usuario set usuario_id = ? where idusuario = ?;");
+		statement.setInt(1, usuario_id);
+		statement.setInt(2, usuario_id);
+		
+		statement.executeUpdate();
+		
+		conncetion.commit();
+	}
 
 }

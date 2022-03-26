@@ -34,6 +34,9 @@ public class FilterAutenticacao implements Filter {
 
 	/*Encerra os processos quando o servidor é parado*/
     /*Mataria os processos de conexão com o banco*/
+    
+    /*FILTERS SÓ SAO CAPAZES DE FILTAR PASTAS DE ARQUIVOS COMO NO EXEMPLO @WebFilter(urlPatterns = {"/principal/*"}) O FILTER SO IRÁ INTERCEPTAR OS ARQUIVOS APARTIR DO DIRETORIO /principal*/
+    
 	public void destroy() {
 		try {
 			connection.close();

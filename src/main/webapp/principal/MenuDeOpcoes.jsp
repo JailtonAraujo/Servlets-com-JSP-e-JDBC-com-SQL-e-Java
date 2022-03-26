@@ -52,6 +52,13 @@
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
+                               <li class="active">
+                                  <a href="<%=request.getContextPath()%>/principal/about.jsp" class="waves-effect waves-dark" style="margin-top:10px;">
+                                      <span class="pcoded-micon"> <img alt="" src="<%=request.getContextPath()%>\assets\images\information-button.png"> </span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">ABOUT</span>
+                                      <span class="pcoded-mcaret"></span>
+                                  </a>
+                              </li>
                               <li class="pcoded-hasmenu">
                                   <a href="javascript:void(0)" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
