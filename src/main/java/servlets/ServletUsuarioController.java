@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import beandto.BeanDtoGraficoSalarioUser;
 import dao.DAOUsuarioRepository;
 
+@SuppressWarnings("static-access")
 @MultipartConfig
 @WebServlet( urlPatterns = {"/ServletUsuarioController"})
 public class ServletUsuarioController extends ServletUtilGeneric implements Servlet {
@@ -278,6 +279,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 				if(part.getSize() > 0) {
 				
 				byte[] foto = IOUtils.toByteArray(part.getInputStream());//Converte para byte//
+	
 				String imagemBase64 = "data:image/" +part.getContentType().split("\\/")[1]+";base64,"+ new Base64().encodeBase64String(foto);
 				fotoUser fotouser = new fotoUser();
 				fotouser.setCodFoto(imagemBase64);

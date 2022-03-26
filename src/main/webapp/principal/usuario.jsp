@@ -164,6 +164,15 @@
 														out.print("selected=\"selected\"");
 														out.print(" ");
 													}%>>Auxiliar</option>
+													
+												<option value="VISITANTE"
+													<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+													if (modelLogin != null && modelLogin.getPerfil().equals("VISITANTE")) {
+														out.print(" ");
+														out.print("selected=\"selected\"");
+														out.print(" ");
+													}%>>Visitante</option>
 
 											</select> <span class="form-bar"></span> <label class="float-label">Perfil:</label>
 										</div>

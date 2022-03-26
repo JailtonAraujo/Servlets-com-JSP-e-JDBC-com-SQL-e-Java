@@ -6,6 +6,7 @@
     <nav class="navbar header-navbar pcoded-header">
               <div class="navbar-wrapper">
                   <div class="navbar-logo">
+                  <div style="font-weight: bold; color: black;">Perfil: ${perfil}</div>
                       <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
                           <i class="ti-menu"></i>
                       </a>
@@ -21,7 +22,7 @@
                           </div>
                       </div>
                       <a href="<%=request.getContextPath()%>/principal/principal.jsp">
-                          <img class="img-fluid" src="<%=request.getContextPath()%>/assets/images/black-cat.png" alt="Theme-Logo" />
+                          <!-- <img class="img-fluid" src="<%=request.getContextPath()%>/assets/images/black-cat.png" alt="Theme-Logo" />-->
                       </a>
                       <a class="mobile-options waves-effect waves-light">
                           <i class="ti-more"></i>
