@@ -1,6 +1,6 @@
 <%@page import="model.ModelLogin"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -30,13 +30,13 @@
 		<div class="pcoded-overlay-box"></div>
 		<div class="pcoded-container navbar-wrapper"">
 
-			<!-- Barra De Navegação da Pagina -->
+			<!-- Barra De NavegaÃ§Ã£o da Pagina -->
 			<jsp:include page="NavBar.jsp"></jsp:include>
 
 			<div class="pcoded-main-container">
 				<div class="pcoded-wrapper">
 
-					<!-- Menu De Opções da Pagina -->
+					<!-- Menu De OpÃ§Ãµes da Pagina -->
 					<jsp:include page="MenuDeOpcoes.jsp"></jsp:include>
 
 					<div class="pcoded-content">
@@ -60,7 +60,7 @@
 								</div>
 								<c:if test="${perfil == 'VISITANTE'}">
 								<div class="card-header">
-									<small>Ol� visitante, voc� n�o pode fazer altera��es neste sistema, entre em contato com o <a href="<%=request.getContextPath()%>/principal/about.jsp">desenvolvedor</a> e solicite permi��o!</small>
+									<small>Olá visitante, você não pode fazer alterações neste sistema, entre em contato com o <a href="<%=request.getContextPath()%>/principal/about.jsp">desenvolvedor</a> e solicite permição!</small>
 									<!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
 								</div>
 								</c:if>
@@ -367,7 +367,7 @@
 						<button type="button" id="btn-search" onclick="">Pesquisar</button>
 					</div>
 
-					<!--Table de visualização-->
+					<!--Table de visualizaÃ§Ã£o-->
 					<div style="height: 300px; overflow: scroll;">
 						<table class="table" id="tblResultados">
 							<thead>
@@ -388,7 +388,7 @@
 						</ul>
 					</nav>	
 					<span id="total-resultado"></span>
-					<!--Table de visualização-->
+					<!--Table de visualizaÃ§Ã£o-->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
@@ -548,7 +548,7 @@
 					
 				})
 				.catch(e => {
-					document.querySelector('#alert').textContent = 'cep inval�do';
+					document.querySelector('#alert').textContent = 'cep invalído';
 					document.querySelector('#alert').style.color = 'red';
 					document.querySelector('#localidade').value = '';
 					document.querySelector('#estado').value = '';
@@ -558,7 +558,7 @@
 				})
 				}
 
-				document.querySelector('#alert').textContent = 'cep inval�do';
+				document.querySelector('#alert').textContent = 'cep invalído';
 				document.querySelector('#alert').style.color = 'red';
 				document.querySelector('#localidade').value = '';
 				document.querySelector('#estado').value = '';

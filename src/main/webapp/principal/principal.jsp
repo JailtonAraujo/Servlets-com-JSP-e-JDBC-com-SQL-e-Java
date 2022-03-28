@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="utf-8"%>
 
 
 <!DOCTYPE html>
@@ -32,13 +32,13 @@
 		<div class="pcoded-overlay-box"></div>
 		<div class="pcoded-container navbar-wrapper">
 
-			<!-- Barra De Navegação da Pagina -->
+			<!-- Barra De NavegaÃ§Ã£o da Pagina -->
 			<jsp:include page="NavBar.jsp"></jsp:include>
 
 			<div class="pcoded-main-container">
 				<div class="pcoded-wrapper">
 
-					<!-- Menu De Opções da Pagina -->
+					<!-- Menu De OpÃ§Ãµes da Pagina -->
 					<jsp:include page="MenuDeOpcoes.jsp"></jsp:include>
 
 					<div class="pcoded-content">

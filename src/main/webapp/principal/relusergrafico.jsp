@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -19,13 +19,13 @@
 		<div class="pcoded-overlay-box"></div>
 		<div class="pcoded-container navbar-wrapper">
 
-			<!-- Barra De NavegaÁ„o da Pagina -->
+			<!-- Barra De Navega√ß√£o da Pagina -->
 			<jsp:include page="NavBar.jsp"></jsp:include>
 
 			<div class="pcoded-main-container">
 				<div class="pcoded-wrapper">
 
-					<!-- Menu De OpÁıes da Pagina -->
+					<!-- Menu De Op√ß√µes da Pagina -->
 					<jsp:include page="MenuDeOpcoes.jsp"></jsp:include>
 
 					<div class="pcoded-content">
@@ -73,7 +73,7 @@
 																
 																
 																<div class="col-auto">
-																	<button type="button" onclick="gerarGrafico();" class="btn btn-primary mb-2">GERAR GR¡FICO</button>
+																	<button type="button" onclick="gerarGrafico();" class="btn btn-primary mb-2">GERAR GR√ÅFICO</button>
 																</div>
 															</div>
 														</form>
@@ -133,7 +133,7 @@
         					    data: {
         						    labels: json.listPerfil,
         						    datasets: [{
-        						      label: 'Gr·frico de mÈdia salario por tipo',
+        						      label: 'Gr√°frico de m√©dia salario por tipo',
         						      backgroundColor: 'rgb(255, 99, 132)',
         						      borderColor: 'rgb(255, 99, 132)',
         						      data: json.listMediaSalarial,

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="utf-8"%>
     
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
     
@@ -48,7 +48,7 @@
                               <li class="active">
                                   <a href="<%=request.getContextPath()%>/principal/principal.jsp" class="waves-effect waves-dark" style="margin-top:10px;">
                                       <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">InÌcio</span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">In√≠cio</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
@@ -166,7 +166,7 @@
                                        <li class=" ">
                                           <a href="<%=request.getContextPath()%>/principal/relusergrafico.jsp" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Gr·fico de Salario</span>
+                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Gr√°fico de Salario</span>
                                               <span class="pcoded-mcaret"></span>
                                           </a>
                                       </li>

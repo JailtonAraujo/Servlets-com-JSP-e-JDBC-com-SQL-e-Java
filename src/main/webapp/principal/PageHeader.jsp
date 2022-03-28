@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="utf-8"%>
 
     <div class="page-header">
                           <div class="page-block">
@@ -15,7 +15,7 @@
                                           <li class="breadcrumb-item">
                                               <a href="<%=request.getContextPath() %>/principal/principal.jsp"> <i class="fa fa-home"></i> </a>
                                           </li>
-                                          <li class="breadcrumb-item"><a href="#!">Início</a>
+                                          <li class="breadcrumb-item"><a href="#!">InÃ­cio</a>
                                           </li>
                                       </ul>
                                   </div>
