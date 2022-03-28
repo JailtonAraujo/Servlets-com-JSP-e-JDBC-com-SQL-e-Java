@@ -1,13 +1,13 @@
 package servlets;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.Servlet;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.ModelLogin;
 import model.endereco;
 import model.fotoUser;
@@ -273,7 +273,7 @@ public class ServletUsuarioController extends ServletUtilGeneric implements Serv
 			modelLogin.setSexo(sexo);
 			modelLogin.setRendaMensal(Double.parseDouble(rendaMensal));
 			
-			if(ServletFileUpload.isMultipartContent(request)) {
+			if( request.getPart("fileFoto") != null) {
 				Part part = request.getPart("fileFoto");//Pega a foto da tela
 				
 				if(part.getSize() > 0) {

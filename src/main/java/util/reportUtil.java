@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.collections.map.HashedMap;
 
-import jakarta.servlet.ServletContext;
+import javax.servlet.ServletContext;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;

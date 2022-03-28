@@ -1,17 +1,18 @@
 package servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import model.ModelLogin;
-import model.ModelTelefone;
 
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import dao.DAOTelefoneRepository;
 import dao.DAOUsuarioRepository;
+import model.ModelLogin;
+import model.ModelTelefone;
 
 @WebServlet("/ServletTelefone")
 public class ServletTelefone extends ServletUtilGeneric {
