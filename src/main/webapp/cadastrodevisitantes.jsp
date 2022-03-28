@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 
 <head>
@@ -31,7 +33,11 @@
                 <label for="exampleInputEmail1" class="form-label">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp" required>
               </div>
-              <div>${msg}</a></div>
+              <div>
+              	<c:if test="${msg != null}">
+              		${msg}, <a href="index.jsp"> Voltar ao Login</a> 
+              	</c:if>
+              </div>
               <button type="submit">Salvar</button>
         </form>
 
