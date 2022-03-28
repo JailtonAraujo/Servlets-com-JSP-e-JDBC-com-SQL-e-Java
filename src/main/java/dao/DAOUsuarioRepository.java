@@ -177,7 +177,7 @@ public class DAOUsuarioRepository {
 	public List<ModelLogin> consultarUsuarioList(String nome, long usuario_id, Integer offset) throws Exception {
 
 		List<ModelLogin> ListaDeUsuarios = new ArrayList<ModelLogin>();
-
+		
 		String sql = "select idusuario, login, email, nome, perfil, sexo, endereco_id from usuario where nome like ? and useradmin is false and usuario_id = ? limit 5 offset "+offset;
 
 		PreparedStatement statement = conncetion.prepareStatement(sql);
