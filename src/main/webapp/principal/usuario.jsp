@@ -23,7 +23,7 @@
 <body>
 
 	<!-- theme-loader -->
-	<jsp:include page="theme-loader.jsp"></jsp:include>
+	<jsp:include page=" theme-loader.jsp"></jsp:include>
 
 	<!-- Pre-loader end -->
 	<div id="pcoded" class="pcoded">

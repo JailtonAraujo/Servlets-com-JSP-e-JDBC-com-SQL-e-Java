@@ -95,7 +95,7 @@ button {
 	}
 }
 
-@media (min-width: 721px) and (max-width: 1080px) {
+@media (min-width: 721px) and ( max-width: 1080px) {
      div.main{
 		width: 80%;
 		height: 80%;
