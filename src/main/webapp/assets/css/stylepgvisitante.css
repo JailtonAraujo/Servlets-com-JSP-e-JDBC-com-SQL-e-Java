@@ -47,7 +47,6 @@ button{
     height: 50px;
     border-radius: 5px;
     margin-top:3%;
-    top: 10%;
     background: none;
     border: none;
     text-transform: uppercase;
@@ -68,18 +67,31 @@ h3{
 }
 
 
-@media (max-width: 1080px) {
+
+@media (max-width: 720px) {
+	
+  .main{
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: none; 
+  }
+  
+  button{
+  width: 100%;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1080px) {
   .main{
   width: 100%;
   height: 100%; 
   }
 }
 
-@media (max-width: 720px) {
-	
+@media (min-width: 1081px) and (max-width: 1680px) {
   .main{
-  width: 100vw;
-  height: 100vh;
-  margin: none; 
+  width: 40%;
+	height: 70% 
   }
 }

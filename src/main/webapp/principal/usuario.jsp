@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en" style=" scroll-behavior: auto;">
+<html lang="pt-br" style=" scroll-behavior: auto;">
 <!-- head do projeto-->
 <jsp:include page="head.jsp"></jsp:include>
 
@@ -292,8 +292,8 @@
 									</form>
 								</div>
 							</div>
-							<div style="height: 300px; overflow: scroll; width: 100%;">
-										<table class="table" id="tblResultadosTagLib">
+							<div style="height: 300px; overflow: scroll; width: 100%;" class="div-tbl">
+										<table class="table" id="tblResultadosTagLib" style="margin: 10px;">
 											<thead>
 												<tr>
 													<th scope="col">ID:</th>
@@ -319,8 +319,7 @@
 												</c:forEach>
 											</tbody>
 										</table>
-									</div>
-									<nav aria-label="Page navigation example">
+										<nav aria-label="Page navigation example" style="margin: 15px;">
 									  	<ul class="pagination">
 									  	<%
 									  	
@@ -336,6 +335,7 @@
 									  	%>
 									  </ul>
 									</nav>
+									</div>
 						</div>
 					</div>
 				</div>

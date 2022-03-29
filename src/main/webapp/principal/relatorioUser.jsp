@@ -74,13 +74,13 @@
 																
 																<div class="col-auto">
 																	<button type="button" onclick="imprimirHtml();" class="btn btn-primary mb-2">IMPRIMIR RELATORIO</button>
-																	<button type="button" onclick="imprimirPDF();" class="btn btn-primary mb-2">IMPRIMIR PDF</button>
+																	<button type="button" onclick="imprimirPDF();" class="btn btn-primary mb-2">GERAR PDF</button>
 																</div>
 															</div>
 														</form>
 													</div>
 												</div>
-												<div style="height: 300px; overflow: scroll; width: 80%;">
+												<div style="height: 300px; overflow: scroll; width: 100%;">
 													<table class="table" id="tblResultadosTagLib">
 														<thead>
 															<tr>
