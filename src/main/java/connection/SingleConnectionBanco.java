@@ -8,9 +8,9 @@ import java.sql.DriverManager;
 
 public class SingleConnectionBanco {
 	
-	private static String url= "jdbc:postgresql://ec2-3-225-213-67.compute-1.amazonaws.com:5432/d5h7nbvp72dh7q?sslmode=require&autoReconnect=true";
-	private static String user = "aqrmspejntxsms";
-	private static String password = "5e5d6f15f2a4a1fb3646d0403dff3c7f2b8a2c75aa8ffad98192b39a4aee581a";
+	private static String url= "jdbc:postgresql://localhost:5402?sslmode=require&autoReconnect=true";
+	private static String user = "postgres";
+	private static String password = "1234";
 	
 	private static Connection connection = null;
 	
